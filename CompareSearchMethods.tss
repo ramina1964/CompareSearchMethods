@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArrayOfArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\view\mainview.xaml</string>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\view\mainview.xaml.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\viewmodel\mainviewmodel.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\model\binaryrecursivesearchtype.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\model\binarynonrecursivesearch.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\model\linearsearch.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\Users\Ramin\Projects\Visual CSharp\Compare Search Methods\CompareSearchMethods\Model\BaseSearch.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\commands\delegatecommand.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\model\searchefficiency.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\model\searchitem.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>d:\users\ramin\projects\visual csharp\compare search methods\comparesearchmethods\viewmodel\numstringconverter.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\Users\Ramin\Projects\Visual CSharp\Compare Search Methods\CompareSearchMethods\Model\Statistics.cs</string>
+    </ArrayOfString>
+  </ArrayOfArrayOfString>
+</ArrayOfArrayOfArrayOfString>
