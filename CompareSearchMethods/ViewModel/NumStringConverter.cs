@@ -14,24 +14,27 @@ namespace CompareSearchMethods.ViewModel
 			var db = value as double?;
 			var isAbsLogSmall = db != null && Math.Abs(Math.Log10(db.Value)) < limitAbsLog;
 
+			if (value == null)
+			{ return null; }
+
 			var type = value.GetType();
 			if (type == typeof(double))
 			{
-				var val = (double) value;
-				return isAbsLogSmall ?
-					val.ToString("G3", CultureInfo.InvariantCulture) :
-					val.ToString("0.00E+00", CultureInfo.InvariantCulture);
+				var val = (double)value;
+				return isAbsLogSmall
+					? val.ToString("G3", CultureInfo.InvariantCulture)
+					: val.ToString("0.00E+00", CultureInfo.InvariantCulture);
 			}
 
 			if (type == typeof(long))
 			{
-				var val = (long) value;
-				return isAbsLogSmall ?
-					val.ToString("G3", CultureInfo.InvariantCulture) :
-					val.ToString("0.00E+00", CultureInfo.InvariantCulture);
+				var val = (long)value;
+				return isAbsLogSmall
+					? val.ToString("G3", CultureInfo.InvariantCulture)
+					: val.ToString("0.00E+00", CultureInfo.InvariantCulture);
 			}
 
-			var intValue = (int) value;
+			var intValue = (int)value;
 			return isAbsLogSmall ?
 				intValue.ToString("D3", CultureInfo.InvariantCulture) :
 				intValue.ToString("G3", CultureInfo.InvariantCulture);
