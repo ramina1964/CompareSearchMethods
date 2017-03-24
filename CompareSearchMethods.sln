@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareSearchMethods", "CompareSearchMethods\CompareSearchMethods.csproj", "{6B84D859-9BBB-4A51-9CE9-26671F23CF40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareSearchMethods.Test", "CompareSearchMethods.Test\CompareSearchMethods.Test.csproj", "{58B90AD1-76FA-44FA-B12C-968C383A43D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6B84D859-9BBB-4A51-9CE9-26671F23CF40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B84D859-9BBB-4A51-9CE9-26671F23CF40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B84D859-9BBB-4A51-9CE9-26671F23CF40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B90AD1-76FA-44FA-B12C-968C383A43D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B90AD1-76FA-44FA-B12C-968C383A43D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B90AD1-76FA-44FA-B12C-968C383A43D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B90AD1-76FA-44FA-B12C-968C383A43D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
