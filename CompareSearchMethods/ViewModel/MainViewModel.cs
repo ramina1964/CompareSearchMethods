@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows;
 using CompareSearchMethods.Commands;
 using CompareSearchMethods.Model;
+using CompareSearchMethods.Model.Interfaces;
 using PropertyChanged;
 
 namespace CompareSearchMethods.ViewModel
@@ -12,8 +13,9 @@ namespace CompareSearchMethods.ViewModel
 	[ImplementPropertyChanged]
 	public class MainViewModel
 	{
-		public MainViewModel()
+		public MainViewModel(ISearchItem searchItem)
 		{
+			SearchItem = searchItem;
 			CommandSimulate = new DelegateCommand(ExecuteSimulate, CanExecuteSimulate);
 			CommandCancel = new DelegateCommand(ExecuteCancel, CanExecuteCancel);
 
@@ -22,6 +24,8 @@ namespace CompareSearchMethods.ViewModel
 
 			ProgressBarVisibility = Visibility.Collapsed;
 		}
+
+		public ISearchItem SearchItem { get; set; }
 
 
 		/************************************ Public Events & Delegates ************************************/
@@ -78,8 +82,8 @@ namespace CompareSearchMethods.ViewModel
 		private void ExecuteSimulate(object obj)
 		{
 			ProgressBarVisibility = Visibility.Visible;
-			LinearSearchType = new LinearSearch(NoOfEntries, NoOfSearches);
-			BinarySearchType = new BinarySearch(NoOfEntries, NoOfSearches);
+			LinearSearchType = new LinearSearch(SearchItem, NoOfEntries, NoOfSearches);
+			BinarySearchType = new BinarySearch(SearchItem, NoOfEntries, NoOfSearches);
 			var searches = new BaseSearch[] { LinearSearchType, BinarySearchType };
 
 			new Thread(() => Simulate(searches)).Start();

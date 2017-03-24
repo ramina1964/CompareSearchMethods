@@ -1,14 +1,16 @@
-﻿namespace CompareSearchMethods.Model
+﻿using CompareSearchMethods.Model.Interfaces;
+
+namespace CompareSearchMethods.Model
 {
 	public class LinearSearch : BaseSearch
 	{
 		/****************************************** Constructors *******************************************/
-		public LinearSearch(int noOfEntries, int noOfSearches) : base(noOfEntries, noOfSearches)
+		public LinearSearch(ISearchItem searchItem, int noOfEntries, int noOfSearches)
+			: base(searchItem, noOfEntries, noOfSearches)
 		{ }
 
-
 		/*************************************** Overridden Methods ****************************************/
-		public override SearchItem FindItem(int value)
+		public override ISearchItem FindItem(int value)
 		{
 			int? targetIndex = null;
 			var noOfIters = 0;
@@ -25,12 +27,10 @@
 				break;
 			}
 
-			return new SearchItem()
-			{
-				TargetIndex = targetIndex,
-				TargetValue = value,
-				NoOfIters = noOfIters
-			};
+			SearchItem.TargetIndex = targetIndex;
+			SearchItem.TargetValue = value;
+			SearchItem.NoOfIters = noOfIters;
+			return SearchItem;
 		}
 
 	}

@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,6 +63,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\BaseSearch.cs" />
     <Compile Include="Model\BinarySearch.cs" />
+    <Compile Include="Model\Interfaces\ISearchItem.cs" />
     <Compile Include="Model\SearchEfficiency.cs" />
     <Compile Include="Model\SearchItem.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />

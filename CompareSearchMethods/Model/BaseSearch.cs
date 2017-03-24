@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using CompareSearchMethods.Model.Interfaces;
 
 namespace CompareSearchMethods.Model
 {
 	public abstract class BaseSearch
 	{
 		/****************************************** Constructors *******************************************/
-		protected BaseSearch(int noOfEntries, int noOfSearches)
+		protected BaseSearch(ISearchItem searchItem, int noOfEntries, int noOfSearches)
 		{
+			SearchItem = searchItem;
 			NoOfEntries = noOfEntries;
 			NoOfSearches = noOfSearches;
 			StartValue = 0;
@@ -19,8 +21,9 @@ namespace CompareSearchMethods.Model
 			Rand = new Random();
 		}
 
-
 		/******************************************* Properties ********************************************/
+		public ISearchItem SearchItem { get; }
+
 		public int NoOfEntries
 		{
 			get { return _noOfEntries; }
@@ -45,11 +48,9 @@ namespace CompareSearchMethods.Model
 			}
 		}
 
-		public string Entries { get; set; }
+		public int EndValue { get; }
 
-		public int EndValue { get; set; }
-
-		public int StartValue { get; set; }
+		public int StartValue { get; }
 
 		public int ElementAt(int index)
 		{
@@ -66,7 +67,7 @@ namespace CompareSearchMethods.Model
 
 
 		/**************************************** Abstract Methods *****************************************/
-		public abstract SearchItem FindItem(int value);
+		public abstract ISearchItem FindItem(int value);
 
 
 		/******************************* Constants & Static & Readonly Fields ******************************/

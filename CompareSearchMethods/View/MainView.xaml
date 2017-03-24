@@ -9,9 +9,9 @@
 		<viewModel:NumStringConverter x:Key="NumStringConverter" />
 	</Window.Resources>
 
-	<Window.DataContext>
+	<!--<Window.DataContext>
 		<viewModel:MainViewModel />
-	</Window.DataContext>
+	</Window.DataContext>-->
 
 	<Page>
 		<Viewbox>
