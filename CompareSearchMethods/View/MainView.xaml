@@ -5,15 +5,10 @@
 		Title="Comparing Effeciency of different Search Methods" FontSize="8"
 		MinWidth="600" MinHeight="500" WindowStartupLocation="CenterScreen" Width="700" Height="550" >
 
-	<Window.Resources>
-		<viewModel:NumStringConverter x:Key="NumStringConverter" />
-	</Window.Resources>
-
-	<!--<Window.DataContext>
-		<viewModel:MainViewModel />
-	</Window.DataContext>-->
-
-	<Page>
+    <Window.Resources>
+        <viewModel:NumStringConverter x:Key="NumStringConverter" />
+    </Window.Resources>
+    <Page>
 		<Viewbox>
 			<Grid Margin="5">
 

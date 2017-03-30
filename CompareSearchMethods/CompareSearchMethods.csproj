@@ -64,7 +64,6 @@
     <Compile Include="Model\BaseSearch.cs" />
     <Compile Include="Model\BinarySearch.cs" />
     <Compile Include="Model\Interfaces\ISearchItem.cs" />
-    <Compile Include="Model\SearchEfficiency.cs" />
     <Compile Include="Model\SearchItem.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Model\LinearSearch.cs" />
