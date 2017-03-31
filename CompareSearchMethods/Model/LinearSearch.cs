@@ -5,8 +5,8 @@ namespace CompareSearchMethods.Model
 	public class LinearSearch : BaseSearch
 	{
 		/****************************************** Constructors *******************************************/
-		public LinearSearch(ISearchItem searchItem, int noOfEntries, int noOfSearches)
-			: base(searchItem, noOfEntries, noOfSearches)
+		public LinearSearch(ISearchItem searchItem, int noOfEntries)
+			: base(searchItem, noOfEntries)
 		{ }
 
 		/*************************************** Overridden Methods ****************************************/

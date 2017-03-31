@@ -5,8 +5,8 @@ namespace CompareSearchMethods.Model
 	public class BinarySearch : BaseSearch
 	{
 		/****************************************** Constructors *******************************************/
-		public BinarySearch(ISearchItem searchItem, int noOfEntries, int noOfSearches)
-			: base(searchItem, noOfEntries, noOfSearches)
+		public BinarySearch(ISearchItem searchItem, int noOfEntries)
+			: base(searchItem, noOfEntries)
 		{ }
 
 
@@ -47,7 +47,5 @@ namespace CompareSearchMethods.Model
 				? FindItemWithBinarySearch(low, mid - 1, value, noOfIters)
 				: FindItemWithBinarySearch(mid + 1, high, value, noOfIters);
 		}
-
-
 	}
 }

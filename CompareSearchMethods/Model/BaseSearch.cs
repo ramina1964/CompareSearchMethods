@@ -9,11 +9,11 @@ namespace CompareSearchMethods.Model
 	public abstract class BaseSearch
 	{
 		/****************************************** Constructors *******************************************/
-		protected BaseSearch(ISearchItem searchItem, int noOfEntries, int noOfSearches)
+		protected BaseSearch(ISearchItem searchItem, int noOfEntries)
 		{
 			SearchItem = searchItem;
 			NoOfEntries = noOfEntries;
-			NoOfSearches = noOfSearches;
+			//NoOfSearches = noOfSearches;
 			StartValue = 0;
 			EndValue = 5 * NoOfEntries - 1;
 
@@ -33,18 +33,6 @@ namespace CompareSearchMethods.Model
 					throw new ArgumentOutOfRangeException(nameof(value), NoOfEntries, NoOfEntriesError);
 
 				_noOfEntries = value;
-			}
-		}
-
-		public int NoOfSearches
-		{
-			get { return _noOfSearches; }
-			set
-			{
-				if (MinNoOfSearches > value || value > MaxNoOfSearches)
-					throw new ArgumentOutOfRangeException(nameof(value), NoOfSearches, NoOfSearchesError);
-
-				_noOfSearches = value;
 			}
 		}
 
@@ -71,10 +59,10 @@ namespace CompareSearchMethods.Model
 
 
 		/******************************* Constants & Static & Readonly Fields ******************************/
-		public const int MaxNoOfEntries = (int) 1e7;
-		public const int MinNoOfEntries = (int) 1e3;
-		public const int MinNoOfSearches = (int) 1e2;
-		public const int MaxNoOfSearches = (int) 1e4;
+		public const int MaxNoOfEntries = (int)1e7;
+		public const int MinNoOfEntries = (int)1e3;
+		public const int MinNoOfSearches = (int)1e2;
+		public const int MaxNoOfSearches = (int)1e4;
 
 		public static readonly string NoOfEntriesError =
 			$"No of Entries must be an integer in the interval [{MinNoOfEntries}, {MaxNoOfEntries}]";
@@ -88,46 +76,27 @@ namespace CompareSearchMethods.Model
 
 
 		/***************************************** Public Methods ******************************************/
-		public int? HighestIndexOf(int item)
+		public void InitializeData(params BaseSearch[] searches)
 		{
-			var searchItem = FindItem(item);
-			var value = searchItem.TargetValue;
-			var index = searchItem.TargetIndex;
-
-			if (index == null)
-			{ return null; }
-
-			var idx = index.Value;
-			for (var i = index.Value + 1; i < NoOfEntries; i++)
-			{
-				if (Data[i] != value)
-				{ break; }
-
-				idx++;
-			}
-
-			return idx;
-		}
-
-		public static void InitializeData(params BaseSearch[] searches)
-		{
-			var data = new List<int>();
+			var data = new HashSet<int>();
 			var size = searches[0].NoOfEntries;
 			var startValue = searches[0].StartValue;
 			var endValue = searches[0].EndValue;
 
-			for (var i = 0; i < size; i++)
+			while (data.Count < size)
 			{ data.Add(Rand.Next(startValue, endValue)); }
 
-			data.Sort();
+			var result = data.ToList();
+			result.Sort();
 			foreach (var search in searches)
-			{ search.Data = new ObservableCollection<int>(data.ToList()); }
+			{
+				//search.Data = new ObservableCollection<int>(result.ToList());
+				search.Data = new ObservableCollection<int>(result);
+			}
 		}
 
 
 		/****************************************** Private Fields *****************************************/
 		private int _noOfEntries;
-		private int _noOfSearches;
-
 	}
 }

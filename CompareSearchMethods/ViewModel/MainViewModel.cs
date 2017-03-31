@@ -65,7 +65,7 @@ namespace CompareSearchMethods.ViewModel
 			set
 			{
 				_targetValue = value;
-				TargetIndex = BinarySearchType.HighestIndexOf(value);
+				TargetIndex = BinarySearchType.FindItem(value).TargetIndex;
 			}
 		}
 
@@ -82,8 +82,8 @@ namespace CompareSearchMethods.ViewModel
 		private void ExecuteSimulate(object obj)
 		{
 			ProgressBarVisibility = Visibility.Visible;
-			LinearSearchType = new LinearSearch(SearchItem, NoOfEntries, NoOfSearches);
-			BinarySearchType = new BinarySearch(SearchItem, NoOfEntries, NoOfSearches);
+			LinearSearchType = new LinearSearch(SearchItem, NoOfEntries);
+			BinarySearchType = new BinarySearch(SearchItem, NoOfEntries);
 			var searches = new BaseSearch[] { LinearSearchType, BinarySearchType };
 
 			new Thread(() => Simulate(searches)).Start();
@@ -106,7 +106,9 @@ namespace CompareSearchMethods.ViewModel
 		private void Simulate(params BaseSearch[] searchTypes)
 		{
 			const double tolerance = 1E-6;
-			BaseSearch.InitializeData(searchTypes);
+			searchTypes[0].InitializeData(searchTypes);
+			searchTypes[1].InitializeData(searchTypes);
+
 			var noOfSearchTypes = searchTypes.Length;
 			for (var i = 0; i < noOfSearchTypes; i++)
 			{
