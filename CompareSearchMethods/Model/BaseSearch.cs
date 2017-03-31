@@ -13,12 +13,11 @@ namespace CompareSearchMethods.Model
 		{
 			SearchItem = searchItem;
 			NoOfEntries = noOfEntries;
-			//NoOfSearches = noOfSearches;
 			StartValue = 0;
 			EndValue = 5 * NoOfEntries - 1;
 
 			IndexOutOfRangeError = $"Index must be an integer in the interval [{0}, {NoOfEntries - 1}].";
-			Rand = new Random();
+			Random = new Random();
 		}
 
 		/******************************************* Properties ********************************************/
@@ -37,9 +36,7 @@ namespace CompareSearchMethods.Model
 		}
 
 		public int EndValue { get; }
-
 		public int StartValue { get; }
-
 		public int ElementAt(int index)
 		{
 			if (0 > index || index >= NoOfEntries)
@@ -48,15 +45,12 @@ namespace CompareSearchMethods.Model
 			return Data[index];
 		}
 
-
 		/************************************** Protected Properties ***************************************/
-		public static Random Rand;
+		public static Random Random;
 		protected ObservableCollection<int> Data;
-
 
 		/**************************************** Abstract Methods *****************************************/
 		public abstract ISearchItem FindItem(int value);
-
 
 		/******************************* Constants & Static & Readonly Fields ******************************/
 		public const int MaxNoOfEntries = (int)1e7;
@@ -74,7 +68,6 @@ namespace CompareSearchMethods.Model
 
 		public static string IndexOutOfRangeError;
 
-
 		/***************************************** Public Methods ******************************************/
 		public void InitializeData(params BaseSearch[] searches)
 		{
@@ -84,17 +77,13 @@ namespace CompareSearchMethods.Model
 			var endValue = searches[0].EndValue;
 
 			while (data.Count < size)
-			{ data.Add(Rand.Next(startValue, endValue)); }
+			{ data.Add(Random.Next(startValue, endValue)); }
 
 			var result = data.ToList();
 			result.Sort();
 			foreach (var search in searches)
-			{
-				//search.Data = new ObservableCollection<int>(result.ToList());
-				search.Data = new ObservableCollection<int>(result);
-			}
+			{ search.Data = new ObservableCollection<int>(result); }
 		}
-
 
 		/****************************************** Private Fields *****************************************/
 		private int _noOfEntries;

@@ -9,11 +9,9 @@ namespace CompareSearchMethods.Model
 			: base(searchItem, noOfEntries)
 		{ }
 
-
 		/*************************************** Overridden Methods ****************************************/
 		public override ISearchItem FindItem(int value)
 		{ return FindItemWithBinarySearch(value); }
-
 
 		/**************************************** Private Methods ******************************************/
 		private ISearchItem FindItemWithBinarySearch(int value)

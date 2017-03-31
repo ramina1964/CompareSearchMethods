@@ -125,7 +125,7 @@ namespace CompareSearchMethods.ViewModel
 				var start = DateTime.Now;
 				for (var j = 0; j < NoOfSearches; j++)
 				{
-					var value = BaseSearch.Rand.Next(searchTypes[0].StartValue, searchTypes[0].EndValue);
+					var value = BaseSearch.Random.Next(searchTypes[0].StartValue, searchTypes[0].EndValue);
 					var searchItem = type.FindItem(value);
 					totalNoOfIters += searchItem.NoOfIters;
 					if (isLinearSearch)
