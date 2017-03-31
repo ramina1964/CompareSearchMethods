@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using CompareSearchMethods.Model;
-using CompareSearchMethods.Model.Interfaces;
 
 namespace CompareSearchMethods.Test
 {
@@ -14,17 +12,16 @@ namespace CompareSearchMethods.Test
 			// Arrange
 			const int noOfEntries = (int)1E5;
 			var searchItem = new SearchItem();
-			var linearSearch = new LinearSearch(searchItem, noOfEntries);
-			linearSearch.InitializeData(linearSearch);
-			var expected = index;
-			var value = linearSearch.ElementAt(index);
+			var expectedIndex = index;
 
 			// Act
-			var sut = linearSearch.FindItem(value);
-			var actual = sut.TargetIndex;
+			var sut = new LinearSearch(searchItem, noOfEntries);
+			sut.InitializeData(sut);
+			var value = sut.ElementAt(index);
+			var actualIndex = sut.FindItem(value).TargetIndex;
 
 			// Assert 
-			Assert.That(actual, Is.EqualTo(expected));
+			Assert.That(actualIndex, Is.EqualTo(expectedIndex));
 		}
 	}
 }

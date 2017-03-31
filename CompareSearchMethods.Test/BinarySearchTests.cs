@@ -7,23 +7,21 @@ namespace CompareSearchMethods.Test
 	public class BinarySearchTests
 	{
 		[TestCase(0), TestCase(1), TestCase(2), TestCase(10), TestCase(20), TestCase(50), TestCase(100), TestCase(1000), TestCase(2000)]
-		public void Should_find_correct_index_with_binary_search(int index)
+		public void Should_find_correct_index_when_value_exists(int index)
 		{
 			// Arrange
 			const int noOfEntries = (int)1E5;
 			var searchItem = new SearchItem();
-			var binarySearch = new BinarySearch(searchItem, noOfEntries);
-			binarySearch.InitializeData(binarySearch);
-			var expected = index;
+			var expectedIndex = index;
 
 			// Act
-			var value = binarySearch.ElementAt(index);
-			var sut = binarySearch.FindItem(value);
-			var actual = sut.TargetIndex;
+			var sut = new BinarySearch(searchItem, noOfEntries);
+			sut.InitializeData(sut);
+			var value = sut.ElementAt(index);
+			var actualIndex = sut.FindItem(value).TargetIndex;
 
 			// Assert 
-			Assert.That(actual, Is.EqualTo(expected));
+			Assert.That(actualIndex, Is.EqualTo(expectedIndex));
 		}
-
 	}
 }
