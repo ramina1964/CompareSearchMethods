@@ -2,13 +2,13 @@
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:viewModel="clr-namespace:CompareSearchMethods.ViewModel"
-		Title="Comparing Effeciency of different Search Methods" FontSize="8"
+		Title="Comparing Efficiency of different Search Methods" FontSize="8"
 		MinWidth="600" MinHeight="500" WindowStartupLocation="CenterScreen" Width="700" Height="550" >
 
-    <Window.Resources>
-        <viewModel:NumStringConverter x:Key="NumStringConverter" />
-    </Window.Resources>
-    <Page>
+	<Window.Resources>
+		<viewModel:NumStringConverter x:Key="NumStringConverter" />
+	</Window.Resources>
+	<Page>
 		<Viewbox>
 			<Grid Margin="5">
 
