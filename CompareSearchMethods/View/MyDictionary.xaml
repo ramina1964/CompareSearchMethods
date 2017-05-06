@@ -3,7 +3,7 @@
 					xmlns:local="clr-namespace:CompareSearchMethods"
 					xmlns:viewModel="clr-namespace:CompareSearchMethods.ViewModel">
 
-	<Style x:Key="BottonStyle" TargetType="Button">
+	<Style x:Key="ButtonStyle" TargetType="Button">
 		<Setter Property="Background" Value="#95E3E2" />
 		<Setter Property="FontSize" Value="8" />
 		<Setter Property="FontStyle" Value="Italic" />

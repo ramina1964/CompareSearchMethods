@@ -16,7 +16,7 @@ namespace CompareSearchMethods.Test
 
 			// Act
 			var sut = new BinarySearch(searchItem, noOfEntries);
-			sut.InitializeData(sut);
+			sut.InitializeData();
 			var value = sut.ElementAt(index);
 			var actualIndex = sut.FindItem(value).TargetIndex;
 

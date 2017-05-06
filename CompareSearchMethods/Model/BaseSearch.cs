@@ -25,10 +25,11 @@ namespace CompareSearchMethods.Model
 
 		public int NoOfEntries
 		{
-			get { return _noOfEntries; }
+			get => _noOfEntries;
 			set
 			{
-				if (MinNoOfEntries > value || value > MaxNoOfEntries)
+				if (!Enumerable.Range(MinNoOfEntries, MaxNoOfEntries).Contains(value))
+
 					throw new ArgumentOutOfRangeException(nameof(value), NoOfEntries, NoOfEntriesError);
 
 				_noOfEntries = value;
@@ -37,10 +38,11 @@ namespace CompareSearchMethods.Model
 
 		public int EndValue { get; }
 		public int StartValue { get; }
+
 		public int ElementAt(int index)
 		{
-			if (0 > index || index >= NoOfEntries)
-				throw new IndexOutOfRangeException(IndexOutOfRangeError);
+			if (!Enumerable.Range(0, NoOfEntries).Contains(index))
+			{ throw new IndexOutOfRangeException(IndexOutOfRangeError); }
 
 			return Data[index];
 		}
@@ -62,27 +64,26 @@ namespace CompareSearchMethods.Model
 			$"No of Entries must be an integer in the interval [{MinNoOfEntries}, {MaxNoOfEntries}]";
 
 		public static readonly string NoOfSearchesError =
-			$"No. of searches must be an integer in the interval [{MinNoOfSearches}, {MaxNoOfSearches}].";
+			$"No. of searchType must be an integer in the interval [{MinNoOfSearches}, {MaxNoOfSearches}].";
 
 		public static readonly string NumericFormatError = "The entered value is not a numeric constant.";
 
 		public static string IndexOutOfRangeError;
 
 		/***************************************** Public Methods ******************************************/
-		public void InitializeData(params BaseSearch[] searches)
+		public void InitializeData()
 		{
 			var data = new HashSet<int>();
-			var size = searches[0].NoOfEntries;
-			var startValue = searches[0].StartValue;
-			var endValue = searches[0].EndValue;
+			var size = NoOfEntries;
+			var startValue = StartValue;
+			var endValue = EndValue;
 
 			while (data.Count < size)
 			{ data.Add(Random.Next(startValue, endValue)); }
 
 			var result = data.ToList();
 			result.Sort();
-			foreach (var search in searches)
-			{ search.Data = new ObservableCollection<int>(result); }
+			Data = new ObservableCollection<int>(result);
 		}
 
 		/****************************************** Private Fields *****************************************/

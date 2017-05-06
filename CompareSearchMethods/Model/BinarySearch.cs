@@ -16,20 +16,20 @@ namespace CompareSearchMethods.Model
 		/**************************************** Private Methods ******************************************/
 		private ISearchItem FindItemWithBinarySearch(int value)
 		{
-			const int noOfIters = 0;
-			return FindItemWithBinarySearch(0, NoOfEntries - 1, value, noOfIters);
+			const int noOfIterations = 0;
+			return FindItemWithBinarySearch(0, NoOfEntries - 1, value, noOfIterations);
 		}
 
-		private ISearchItem FindItemWithBinarySearch(int low, int high, int value, int noOfIters)
+		private ISearchItem FindItemWithBinarySearch(int low, int high, int value, int noOfIterations)
 		{
-			noOfIters++;
+			noOfIterations++;
 
 			if (low > high)
 				return new SearchItem()
 				{
 					TargetIndex = null,
 					TargetValue = value,
-					NoOfIters = noOfIters
+					NoOfIters = noOfIterations
 				};
 
 			var mid = (low + high) / 2;
@@ -38,12 +38,12 @@ namespace CompareSearchMethods.Model
 				{
 					TargetIndex = mid,
 					TargetValue = value,
-					NoOfIters = noOfIters
+					NoOfIters = noOfIterations
 				};
 
 			return (Data[mid] > value)
-				? FindItemWithBinarySearch(low, mid - 1, value, noOfIters)
-				: FindItemWithBinarySearch(mid + 1, high, value, noOfIters);
+				? FindItemWithBinarySearch(low, mid - 1, value, noOfIterations)
+				: FindItemWithBinarySearch(mid + 1, high, value, noOfIterations);
 		}
 	}
 }

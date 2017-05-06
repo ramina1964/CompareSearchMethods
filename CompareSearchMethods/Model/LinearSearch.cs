@@ -13,10 +13,10 @@ namespace CompareSearchMethods.Model
 		public override ISearchItem FindItem(int value)
 		{
 			int? targetIndex = null;
-			var noOfIters = 0;
+			var noOfIterations = 0;
 			for (var i = 0; i < NoOfEntries; i++)
 			{
-				noOfIters++;
+				noOfIterations++;
 				if (Data[i] < value)
 					continue;
 
@@ -29,7 +29,7 @@ namespace CompareSearchMethods.Model
 
 			SearchItem.TargetIndex = targetIndex;
 			SearchItem.TargetValue = value;
-			SearchItem.NoOfIters = noOfIters;
+			SearchItem.NoOfIters = noOfIterations;
 			return SearchItem;
 		}
 

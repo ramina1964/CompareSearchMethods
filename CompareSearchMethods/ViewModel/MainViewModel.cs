@@ -19,8 +19,8 @@ namespace CompareSearchMethods.ViewModel
 			CommandSimulate = new DelegateCommand(ExecuteSimulate, CanExecuteSimulate);
 			CommandCancel = new DelegateCommand(ExecuteCancel, CanExecuteCancel);
 
-			NoOfEntries = (int)5e5;
-			NoOfSearches = (int)1e3;
+			NoOfEntries = (int) 5e5;
+			NoOfSearches = (int) 1e3;
 
 			ProgressBarVisibility = Visibility.Collapsed;
 		}
@@ -30,6 +30,7 @@ namespace CompareSearchMethods.ViewModel
 
 		/************************************ Public Events & Delegates ************************************/
 		public DelegateCommand CommandSimulate { get; set; }
+
 		public DelegateCommand CommandCancel { get; set; }
 
 
@@ -46,21 +47,16 @@ namespace CompareSearchMethods.ViewModel
 
 		public string ProgressBarText => Math.Round(ProgressBarValue, 0) + "%";
 
+		public ISimulationResults LinearSearchResults { get; set; }
+		public ISimulationResults BinarySearchResults { get; set; }
+
 		public int NoOfEntries { get; set; }
 
 		public int NoOfSearches { get; set; }
 
-		public double AvgNoOfItersLinear { get; set; }
-
-		public double AvgNoOfItersBinary { get; set; }
-
-		public double AvgElapsedTimeLinear { get; set; }
-
-		public double AvgElapsedTimeBinary { get; set; }
-
 		public int TargetValue
 		{
-			get { return _targetValue; }
+			get => _targetValue;
 
 			set
 			{
@@ -84,7 +80,7 @@ namespace CompareSearchMethods.ViewModel
 			ProgressBarVisibility = Visibility.Visible;
 			LinearSearchType = new LinearSearch(SearchItem, NoOfEntries);
 			BinarySearchType = new BinarySearch(SearchItem, NoOfEntries);
-			var searches = new BaseSearch[] { LinearSearchType, BinarySearchType };
+			var searches = new BaseSearch[] {LinearSearchType, BinarySearchType};
 
 			new Thread(() => Simulate(searches)).Start();
 		}
@@ -96,7 +92,9 @@ namespace CompareSearchMethods.ViewModel
 
 		private bool CanExecuteSimulate(object obj)
 
-		{ return CanSimulate; }
+		{
+			return CanSimulate;
+		}
 
 		private bool CanExecuteCancel(object obj)
 		{
@@ -105,64 +103,74 @@ namespace CompareSearchMethods.ViewModel
 
 		private void Simulate(params BaseSearch[] searchTypes)
 		{
-			const double tolerance = 1E-6;
-			searchTypes[0].InitializeData(searchTypes);
-			searchTypes[1].InitializeData(searchTypes);
+			searchTypes[0].InitializeData();
+			searchTypes[1].InitializeData();
 
-			var noOfSearchTypes = searchTypes.Length;
-			for (var i = 0; i < noOfSearchTypes; i++)
-			{
-				var type = searchTypes[i];
-				var isLinearSearch = type.GetType() == typeof(LinearSearch);
-				var totalNoOfIters = 0.0;
-				if (!isLinearSearch)
-				{
-					TargetValue = type.ElementAt(0);
-					var entries = type.FindItem(TargetValue);
-					TargetIndex = entries.TargetIndex;
-				}
-
-				var start = DateTime.Now;
-				for (var j = 0; j < NoOfSearches; j++)
-				{
-					var value = BaseSearch.Random.Next(searchTypes[0].StartValue, searchTypes[0].EndValue);
-					var searchItem = type.FindItem(value);
-					totalNoOfIters += searchItem.NoOfIters;
-					if (isLinearSearch)
-						ProgressBarValue = ((double)(j + 1) * 100) / NoOfSearches;
-
-					if (Math.Abs(ProgressBarValue - 100) > tolerance)
-					{ continue; }
-
-					ProgressBarValue = 0;
-					ProgressBarVisibility = Visibility.Collapsed;
-				}
-				var end = DateTime.Now;
-				var totalElapsedTime = (end - start).TotalMilliseconds;
-				FillAvgValues(isLinearSearch, totalNoOfIters, totalElapsedTime);
-			}
+			Entries = GetEntries();
+			LinearSearchResults = SimulateLinearSearch(searchTypes[0]);
+			BinarySearchResults = SimulateBinarySearch(searchTypes[1]);
 		}
 
-		private void FillAvgValues(bool isLinearSearch, double totalNoOfIters, double totalElapsedTime)
+		private ISimulationResults SimulateLinearSearch(BaseSearch linearSearch)
 		{
-			if (isLinearSearch)
+			const double tolerance = 1E-6;
+			var totalNoOfIterations = 0.0;
+			var start = DateTime.Now;
+			for (var j = 0; j < NoOfSearches; j++)
 			{
-				AvgNoOfItersLinear = totalNoOfIters / NoOfSearches;
-				AvgElapsedTimeLinear = totalElapsedTime / NoOfSearches;
-			}
+				var value = BaseSearch.Random.Next(linearSearch.StartValue, linearSearch.EndValue);
+				var searchItem = linearSearch.FindItem(value);
+				totalNoOfIterations += searchItem.NoOfIters;
+				ProgressBarValue = (j + 1) * 100.0 / NoOfSearches;
 
-			else
-			{
-				AvgNoOfItersBinary = totalNoOfIters / NoOfSearches;
-				AvgElapsedTimeBinary = totalElapsedTime / NoOfSearches;
-				Entries = GetEntries();
+				if (Math.Abs(ProgressBarValue - 100) > tolerance)
+				{ continue; }
+
+				ProgressBarValue = 0;
+				ProgressBarVisibility = Visibility.Collapsed;
 			}
+			var end = DateTime.Now;
+			var totalElapsedTime = (end - start).TotalMilliseconds;
+			return SimulationResults(totalNoOfIterations, totalElapsedTime);
+		}
+
+		private ISimulationResults SimulateBinarySearch(BaseSearch binarySearch)
+		{
+			TargetValue = binarySearch.ElementAt(0);
+			var entries = binarySearch.FindItem(TargetValue);
+			TargetIndex = entries.TargetIndex;
+
+			var start = DateTime.Now;
+			var totalNoOfIterations = 0.0;
+			for (var j = 0; j < NoOfSearches; j++)
+			{
+				var value = BaseSearch.Random.Next(binarySearch.StartValue, binarySearch.EndValue);
+				var searchItem = binarySearch.FindItem(value);
+				totalNoOfIterations += searchItem.NoOfIters;
+			}
+			var end = DateTime.Now;
+
+			var totalElapsedTime = (end - start).TotalMilliseconds;
+			return SimulationResults(totalNoOfIterations, totalElapsedTime);
+		}
+
+		private ISimulationResults SimulationResults(double totalNoOfIterations, double totalElapsedTime)
+		{
+			return new SimulationResults()
+			{
+				NoOfEntries = NoOfEntries,
+				NoOfSearches = NoOfSearches,
+				AvgNoOfIterations = totalNoOfIterations / NoOfSearches,
+				AvgElapsedTime = totalElapsedTime / NoOfSearches
+			};
 		}
 
 		private string GetEntries()
 		{
 			if (NoOfEntries <= 32)
-			{ return GetSubString(0, NoOfEntries - 1).ToString(); }
+			{
+				return GetSubString(0, NoOfEntries - 1).ToString();
+			}
 
 			const string subEtc = " ..., ";
 			var mid = NoOfEntries / 2;
@@ -178,11 +186,13 @@ namespace CompareSearchMethods.ViewModel
 		{
 			var sb = new StringBuilder();
 			for (var i = fromIndex; i < toIndex; i++)
-			{ sb.Append(BinarySearchType.ElementAt(i) + ", "); }
+			{
+				sb.Append(BinarySearchType.ElementAt(i) + ", ");
+			}
 
-			return (toIndex == NoOfEntries - 1) ?
-				sb.Append(BinarySearchType.ElementAt(toIndex)) :
-				sb.Append(BinarySearchType.ElementAt(toIndex) + ", ");
+			return (toIndex == NoOfEntries - 1)
+				? sb.Append(BinarySearchType.ElementAt(toIndex))
+				: sb.Append(BinarySearchType.ElementAt(toIndex) + ", ");
 		}
 
 

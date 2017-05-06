@@ -64,9 +64,11 @@
     <Compile Include="Model\BaseSearch.cs" />
     <Compile Include="Model\BinarySearch.cs" />
     <Compile Include="Model\Interfaces\ISearchItem.cs" />
+    <Compile Include="Model\ISimulationResults.cs" />
     <Compile Include="Model\SearchItem.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Model\LinearSearch.cs" />
+    <Compile Include="Model\SimulationResults.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NumStringConverter.cs" />
     <Page Include="View\MainView.xaml">

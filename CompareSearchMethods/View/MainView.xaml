@@ -63,7 +63,7 @@
 								   HorizontalAlignment="Right" HorizontalContentAlignment="Right" >
 
 								<Label.Content>
-									<Binding Path="AvgNoOfItersLinear" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
+									<Binding Path="LinearSearchResults.AvgNoOfIterations" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
 											 Converter="{StaticResource NumStringConverter}" />
 								</Label.Content >
 							</Label>
@@ -76,7 +76,7 @@
 								   HorizontalAlignment="Right" HorizontalContentAlignment="Right" >
 
 								<Label.Content>
-									<Binding Path="AvgElapsedTimeLinear" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
+									<Binding Path="LinearSearchResults.AvgElapsedTime" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
 											 Converter="{StaticResource NumStringConverter}" />
 								</Label.Content >
 							</Label>
@@ -89,7 +89,7 @@
 								   HorizontalAlignment="Right" HorizontalContentAlignment="Right" >
 
 								<Label.Content>
-									<Binding Path="AvgNoOfItersBinary" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
+									<Binding Path="BinarySearchResults.AvgNoOfIterations" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
 											 Converter="{StaticResource NumStringConverter}" />
 								</Label.Content >
 							</Label>
@@ -102,7 +102,7 @@
 								   HorizontalAlignment="Right" HorizontalContentAlignment="Right" >
 
 								<Label.Content>
-									<Binding Path="AvgElapsedTimeBinary" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
+									<Binding Path="BinarySearchResults.AvgElapsedTime" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"
 											 Converter="{StaticResource NumStringConverter}" />
 								</Label.Content >
 							</Label>
@@ -131,16 +131,20 @@
 					</StackPanel>
 				</GroupBox>
 
-				<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Width="Auto" Height="Auto"
+				<GroupBox Style ="{StaticResource GroupBoxStyle}" Header="Simulation Panel" Grid.Row="1" Grid.Column="1"
+						  HorizontalAlignment="Center" VerticalAlignment="Center" >
+					<StackPanel Orientation="Vertical" Width="Auto" Height="Auto"
 							HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 0" >
 
-					<Button Style="{StaticResource BottonStyle}" DockPanel.Dock="Top" Content="Simulate Searches"
+						<Button Style="{StaticResource ButtonStyle}" DockPanel.Dock="Top" Content="Simulate Searches"
 							IsEnabled ="{Binding CanSimulate}" Command="{Binding CommandSimulate}" />
 
-					<Button Style="{StaticResource BottonStyle}" DockPanel.Dock="Bottom" Margin="0, 5, 0, 0" Content="Cancel" 
+						<Button Style="{StaticResource ButtonStyle}" DockPanel.Dock="Bottom" Margin="0, 5, 0, 0" Content="Cancel" 
 							IsEnabled ="{Binding CanCancel}" Command="{Binding CommandCancel}" />
 
-				</StackPanel>
+					</StackPanel>
+				</GroupBox>
+
 
 				<DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
 						   HorizontalAlignment="Center" VerticalAlignment="Center" Width ="Auto" Margin="5, 0, 0, 0" >
