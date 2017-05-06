@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using CompareSearchMethods.Commands;
 using CompareSearchMethods.Model;
@@ -16,11 +17,11 @@ namespace CompareSearchMethods.ViewModel
 		public MainViewModel(ISearchItem searchItem)
 		{
 			SearchItem = searchItem;
-			CommandSimulate = new DelegateCommand(ExecuteSimulate, CanExecuteSimulate);
-			CommandCancel = new DelegateCommand(ExecuteCancel, CanExecuteCancel);
+			CommandSimulate = new DelegateCommand(ExecuteSimulation, CanExecuteSimulation);
+			CommandCancel = new DelegateCommand(ExecuteCancelation, CanExecuteCancelation);
 
-			NoOfEntries = (int) 5e5;
-			NoOfSearches = (int) 1e3;
+			NoOfEntries = (int)5e5;
+			NoOfSearches = (int)1e3;
 
 			ProgressBarVisibility = Visibility.Collapsed;
 		}
@@ -75,83 +76,90 @@ namespace CompareSearchMethods.ViewModel
 
 
 		/***************************************** Private Methods *****************************************/
-		private void ExecuteSimulate(object obj)
+		private void ExecuteSimulation(object obj)
 		{
 			ProgressBarVisibility = Visibility.Visible;
 			LinearSearchType = new LinearSearch(SearchItem, NoOfEntries);
 			BinarySearchType = new BinarySearch(SearchItem, NoOfEntries);
-			var searches = new BaseSearch[] {LinearSearchType, BinarySearchType};
+			var searches = new BaseSearch[] { LinearSearchType, BinarySearchType };
 
 			new Thread(() => Simulate(searches)).Start();
 		}
 
-		private void ExecuteCancel(object obj)
+		private void ExecuteCancelation(object obj)
 		{
 			// Cancel the simulation.
 		}
 
-		private bool CanExecuteSimulate(object obj)
+		private bool CanExecuteSimulation(object obj)
 
 		{
 			return CanSimulate;
 		}
 
-		private bool CanExecuteCancel(object obj)
+		private bool CanExecuteCancelation(object obj)
 		{
 			return true;
 		}
 
-		private void Simulate(params BaseSearch[] searchTypes)
+		private async void Simulate(params BaseSearch[] searchTypes)
 		{
 			searchTypes[0].InitializeData();
 			searchTypes[1].InitializeData();
 
 			Entries = GetEntries();
-			LinearSearchResults = SimulateLinearSearch(searchTypes[0]);
-			BinarySearchResults = SimulateBinarySearch(searchTypes[1]);
+			LinearSearchResults = await SimulateLinearSearchAsync(searchTypes[0]).ConfigureAwait(true);
+			BinarySearchResults = await SimulateBinarySearchAsync(searchTypes[1]).ConfigureAwait(true);
 		}
 
-		private ISimulationResults SimulateLinearSearch(BaseSearch linearSearch)
+		private Task<ISimulationResults> SimulateLinearSearchAsync(BaseSearch linearSearch)
 		{
-			const double tolerance = 1E-6;
-			var totalNoOfIterations = 0.0;
-			var start = DateTime.Now;
-			for (var j = 0; j < NoOfSearches; j++)
+			return Task.Factory.StartNew(() =>
 			{
-				var value = BaseSearch.Random.Next(linearSearch.StartValue, linearSearch.EndValue);
-				var searchItem = linearSearch.FindItem(value);
-				totalNoOfIterations += searchItem.NoOfIters;
-				ProgressBarValue = (j + 1) * 100.0 / NoOfSearches;
+				const double tolerance = 1E-6;
+				var totalNoOfIterations = 0.0;
+				var start = DateTime.Now;
+				for (var j = 0; j < NoOfSearches; j++)
+				{
+					var value = BaseSearch.Random.Next(linearSearch.StartValue, linearSearch.EndValue);
+					var searchItem = linearSearch.FindItem(value);
+					totalNoOfIterations += searchItem.NoOfIters;
+					ProgressBarValue = (j + 1) * 100.0 / NoOfSearches;
 
-				if (Math.Abs(ProgressBarValue - 100) > tolerance)
-				{ continue; }
+					if (Math.Abs(ProgressBarValue - 100) > tolerance)
+					{ continue; }
 
-				ProgressBarValue = 0;
-				ProgressBarVisibility = Visibility.Collapsed;
-			}
-			var end = DateTime.Now;
-			var totalElapsedTime = (end - start).TotalMilliseconds;
-			return SimulationResults(totalNoOfIterations, totalElapsedTime);
+					ProgressBarValue = 0;
+					ProgressBarVisibility = Visibility.Collapsed;
+				}
+				var end = DateTime.Now;
+
+				var totalElapsedTime = (end - start).TotalMilliseconds;
+				return SimulationResults(totalNoOfIterations, totalElapsedTime);
+			});
 		}
 
-		private ISimulationResults SimulateBinarySearch(BaseSearch binarySearch)
+		private Task<ISimulationResults> SimulateBinarySearchAsync(BaseSearch binarySearch)
 		{
-			TargetValue = binarySearch.ElementAt(0);
-			var entries = binarySearch.FindItem(TargetValue);
-			TargetIndex = entries.TargetIndex;
-
-			var start = DateTime.Now;
-			var totalNoOfIterations = 0.0;
-			for (var j = 0; j < NoOfSearches; j++)
+			return Task.Factory.StartNew(() =>
 			{
-				var value = BaseSearch.Random.Next(binarySearch.StartValue, binarySearch.EndValue);
-				var searchItem = binarySearch.FindItem(value);
-				totalNoOfIterations += searchItem.NoOfIters;
-			}
-			var end = DateTime.Now;
+				TargetValue = binarySearch.ElementAt(0);
+				var entries = binarySearch.FindItem(TargetValue);
+				TargetIndex = entries.TargetIndex;
 
-			var totalElapsedTime = (end - start).TotalMilliseconds;
-			return SimulationResults(totalNoOfIterations, totalElapsedTime);
+				var start = DateTime.Now;
+				var totalNoOfIterations = 0.0;
+				for (var j = 0; j < NoOfSearches; j++)
+				{
+					var value = BaseSearch.Random.Next(binarySearch.StartValue, binarySearch.EndValue);
+					var searchItem = binarySearch.FindItem(value);
+					totalNoOfIterations += searchItem.NoOfIters;
+				}
+				var end = DateTime.Now;
+
+				var totalElapsedTime = (end - start).TotalMilliseconds;
+				return SimulationResults(totalNoOfIterations, totalElapsedTime);
+			});
 		}
 
 		private ISimulationResults SimulationResults(double totalNoOfIterations, double totalElapsedTime)
