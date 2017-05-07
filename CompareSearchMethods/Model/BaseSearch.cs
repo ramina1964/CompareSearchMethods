@@ -24,27 +24,21 @@ namespace CompareSearchMethods.Model
 		public ISearchItem SearchItem { get; }
 
 		public int NoOfEntries
-		{
-			get => _noOfEntries;
-			set
-			{
-				if (!Enumerable.Range(MinNoOfEntries, MaxNoOfEntries).Contains(value))
-
-					throw new ArgumentOutOfRangeException(nameof(value), NoOfEntries, NoOfEntriesError);
-
-				_noOfEntries = value;
-			}
-		}
+		{ get; }
 
 		public int EndValue { get; }
 		public int StartValue { get; }
 
-		public int ElementAt(int index)
+		public int this[int index]
 		{
-			if (!Enumerable.Range(0, NoOfEntries).Contains(index))
-			{ throw new IndexOutOfRangeException(IndexOutOfRangeError); }
+			get => Data[index];
+			set
+			{
+				if (0 > index || index > NoOfEntries - 1)
+				{ throw new IndexOutOfRangeException(IndexOutOfRangeError); }
 
-			return Data[index];
+				Data[index] = value;
+			}
 		}
 
 		/************************************** Protected Properties ***************************************/
@@ -55,16 +49,17 @@ namespace CompareSearchMethods.Model
 		public abstract ISearchItem FindItem(int value);
 
 		/******************************* Constants & Static & Readonly Fields ******************************/
-		public const int MaxNoOfEntries = (int)1e7;
-		public const int MinNoOfEntries = (int)1e3;
-		public const int MinNoOfSearches = (int)1e2;
-		public const int MaxNoOfSearches = (int)1e4;
+
+		public static int MinNoOfEntries = (int)1e3;
+		public static int MaxNoOfEntries = (int)1e7;
+		public static int MinNoOfSearches = (int)1e2;
+		public static int MaxNoOfSearches = (int)1e6;
 
 		public static readonly string NoOfEntriesError =
-			$"No of Entries must be an integer in the interval [{MinNoOfEntries}, {MaxNoOfEntries}]";
+			$"No of entries must be an integer in the interval [{MinNoOfEntries}, {MaxNoOfEntries}].";
 
 		public static readonly string NoOfSearchesError =
-			$"No. of searchType must be an integer in the interval [{MinNoOfSearches}, {MaxNoOfSearches}].";
+			$"No. of searches must be an integer in the interval [{MinNoOfSearches}, {MaxNoOfSearches}].";
 
 		public static readonly string NumericFormatError = "The entered value is not a numeric constant.";
 
@@ -87,6 +82,5 @@ namespace CompareSearchMethods.Model
 		}
 
 		/****************************************** Private Fields *****************************************/
-		private int _noOfEntries;
 	}
 }

@@ -3,44 +3,43 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using CompareSearchMethods.Commands;
 using CompareSearchMethods.Model;
 using CompareSearchMethods.Model.Interfaces;
-using PropertyChanged;
 
 namespace CompareSearchMethods.ViewModel
 {
 	/********************************************* Constructors ********************************************/
-	[ImplementPropertyChanged]
-	public class MainViewModel
+	public class MainViewModel : ViewModelBase
 	{
 		public MainViewModel(ISearchItem searchItem)
 		{
 			SearchItem = searchItem;
-			CommandSimulate = new DelegateCommand(ExecuteSimulation, CanExecuteSimulation);
-			CommandCancel = new DelegateCommand(ExecuteCancelation, CanExecuteCancelation);
+			SimulateCommand = new RelayCommand(CanSimulate, Simulate);
+			CancelCommand = new RelayCommand(CanCancel, Cancel);
 
 			NoOfEntries = (int)5e5;
 			NoOfSearches = (int)1e3;
 
+			IsSimulating = false;
 			ProgressBarVisibility = Visibility.Collapsed;
 		}
 
-		public ISearchItem SearchItem { get; set; }
-
+		/************************************** Static and Constants ***************************************/
+		public static long MinProductValue = (long)1e5;
+		public static long MaxProductValue = (long)5e10;
+		public static readonly string MaxProductError =
+			$"Product of No. of searches and No. of entries must be in the interval [{MinProductValue}, {MaxProductValue}].";
 
 		/************************************ Public Events & Delegates ************************************/
-		public DelegateCommand CommandSimulate { get; set; }
-
-		public DelegateCommand CommandCancel { get; set; }
-
+		public ICommand SimulateCommand { get; set; }
+		public ICommand CancelCommand { get; set; }
 
 		/******************************************* Properties ********************************************/
-		public bool CanSimulate =>
-			(BaseSearch.MinNoOfEntries <= NoOfEntries && NoOfEntries <= BaseSearch.MaxNoOfEntries) &&
-			(BaseSearch.MinNoOfSearches <= NoOfSearches && NoOfSearches <= BaseSearch.MaxNoOfSearches);
-
-		public bool CanCancel => !CanSimulate;
+		public ISearchItem SearchItem { get; set; }
+		public bool IsSimulating { get; set; }
+		public bool IsReady => !IsSimulating;
 
 		public Visibility ProgressBarVisibility { get; set; }
 
@@ -51,9 +50,25 @@ namespace CompareSearchMethods.ViewModel
 		public ISimulationResults LinearSearchResults { get; set; }
 		public ISimulationResults BinarySearchResults { get; set; }
 
-		public int NoOfEntries { get; set; }
+		public int NoOfEntries
+		{
+			get => _noOfEntries;
+			set
+			{
+				_noOfEntries = value;
+				OnPropertyChanged();
+			}
+		}
 
-		public int NoOfSearches { get; set; }
+		public long NoOfSearches
+		{
+			get => _noOfSearches;
+			set
+			{
+				_noOfSearches = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public int TargetValue
 		{
@@ -76,63 +91,57 @@ namespace CompareSearchMethods.ViewModel
 
 
 		/***************************************** Private Methods *****************************************/
-		private void ExecuteSimulation(object obj)
+		private void Simulate(object obj)
 		{
+			IsSimulating = true;
 			ProgressBarVisibility = Visibility.Visible;
 			LinearSearchType = new LinearSearch(SearchItem, NoOfEntries);
 			BinarySearchType = new BinarySearch(SearchItem, NoOfEntries);
 			var searches = new BaseSearch[] { LinearSearchType, BinarySearchType };
 
 			new Thread(() => Simulate(searches)).Start();
+			IsSimulating = false;
 		}
 
-		private void ExecuteCancelation(object obj)
+		private void Cancel(object obj)
 		{
-			// Cancel the simulation.
+
 		}
 
-		private bool CanExecuteSimulation(object obj)
+		private bool CanSimulate(object obj)
+		{ return IsReady && IsInputValid(); }
 
-		{
-			return CanSimulate;
-		}
-
-		private bool CanExecuteCancelation(object obj)
-		{
-			return true;
-		}
+		private bool CanCancel(object obj)
+		{ return IsSimulating; }
 
 		private async void Simulate(params BaseSearch[] searchTypes)
 		{
+			IsSimulating = true;
 			searchTypes[0].InitializeData();
 			searchTypes[1].InitializeData();
 
 			Entries = GetEntries();
 			LinearSearchResults = await SimulateLinearSearchAsync(searchTypes[0]).ConfigureAwait(true);
 			BinarySearchResults = await SimulateBinarySearchAsync(searchTypes[1]).ConfigureAwait(true);
+			IsSimulating = false;
 		}
 
 		private Task<ISimulationResults> SimulateLinearSearchAsync(BaseSearch linearSearch)
 		{
 			return Task.Factory.StartNew(() =>
 			{
-				const double tolerance = 1E-6;
 				var totalNoOfIterations = 0.0;
 				var start = DateTime.Now;
 				for (var j = 0; j < NoOfSearches; j++)
 				{
 					var value = BaseSearch.Random.Next(linearSearch.StartValue, linearSearch.EndValue);
 					var searchItem = linearSearch.FindItem(value);
-					totalNoOfIterations += searchItem.NoOfIters;
+					totalNoOfIterations += searchItem.NoOfIterations;
 					ProgressBarValue = (j + 1) * 100.0 / NoOfSearches;
-
-					if (Math.Abs(ProgressBarValue - 100) > tolerance)
-					{ continue; }
-
-					ProgressBarValue = 0;
-					ProgressBarVisibility = Visibility.Collapsed;
 				}
 				var end = DateTime.Now;
+				ProgressBarValue = 0;
+				ProgressBarVisibility = Visibility.Collapsed;
 
 				var totalElapsedTime = (end - start).TotalMilliseconds;
 				return SimulationResults(totalNoOfIterations, totalElapsedTime);
@@ -143,7 +152,7 @@ namespace CompareSearchMethods.ViewModel
 		{
 			return Task.Factory.StartNew(() =>
 			{
-				TargetValue = binarySearch.ElementAt(0);
+				TargetValue = binarySearch[0];
 				var entries = binarySearch.FindItem(TargetValue);
 				TargetIndex = entries.TargetIndex;
 
@@ -153,7 +162,7 @@ namespace CompareSearchMethods.ViewModel
 				{
 					var value = BaseSearch.Random.Next(binarySearch.StartValue, binarySearch.EndValue);
 					var searchItem = binarySearch.FindItem(value);
-					totalNoOfIterations += searchItem.NoOfIters;
+					totalNoOfIterations += searchItem.NoOfIterations;
 				}
 				var end = DateTime.Now;
 
@@ -195,16 +204,28 @@ namespace CompareSearchMethods.ViewModel
 			var sb = new StringBuilder();
 			for (var i = fromIndex; i < toIndex; i++)
 			{
-				sb.Append(BinarySearchType.ElementAt(i) + ", ");
+				sb.Append(BinarySearchType[i] + ", ");
 			}
 
 			return (toIndex == NoOfEntries - 1)
-				? sb.Append(BinarySearchType.ElementAt(toIndex))
-				: sb.Append(BinarySearchType.ElementAt(toIndex) + ", ");
+				? sb.Append(BinarySearchType[toIndex])
+				: sb.Append(BinarySearchType[toIndex] + ", ");
 		}
 
+		private bool IsInputValid()
+		{
+			var productValue = NoOfEntries * NoOfSearches;
+			var isNoOfEntriesInRange = BaseSearch.MinNoOfEntries <= NoOfEntries && NoOfEntries <= BaseSearch.MaxNoOfEntries;
+			var isNoOfSearchesInRange = BaseSearch.MinNoOfSearches <= NoOfSearches && NoOfSearches <= BaseSearch.MaxNoOfSearches;
+			var isProductInRange = MinProductValue <= productValue && productValue <= MaxProductValue;
+
+			return isNoOfEntriesInRange && isNoOfSearchesInRange && isProductInRange;
+		}
 
 		/***************************************** Private Fields ******************************************/
 		private int _targetValue;
+
+		private long _noOfSearches;
+		private int _noOfEntries;
 	}
 }

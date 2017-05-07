@@ -29,7 +29,7 @@ namespace CompareSearchMethods.Model
 
 			SearchItem.TargetIndex = targetIndex;
 			SearchItem.TargetValue = value;
-			SearchItem.NoOfIters = noOfIterations;
+			SearchItem.NoOfIterations = noOfIterations;
 			return SearchItem;
 		}
 

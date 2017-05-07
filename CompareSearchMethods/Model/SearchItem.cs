@@ -7,6 +7,6 @@ namespace CompareSearchMethods.Model
 		/******************************************* Properties ********************************************/
 		public int? TargetIndex { get; set; }
 		public int TargetValue { get; set; }
-		public int NoOfIters { get; set; }
+		public int NoOfIterations { get; set; }
 	}
 }

@@ -31,7 +31,7 @@ namespace CompareSearchMethods.ViewModel
 				var val = (long)value;
 				return isAbsLogSmall
 					? val.ToString("G3", CultureInfo.InvariantCulture)
-					: val.ToString("0.00E+00", CultureInfo.InvariantCulture);
+					: val.ToString("0E+00", CultureInfo.InvariantCulture);
 			}
 
 			var intValue = (int)value;
@@ -43,9 +43,7 @@ namespace CompareSearchMethods.ViewModel
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var str = value as string;
-			double result;
-
-			if (!double.TryParse(str, out result))
+			if (!double.TryParse(str, out double result))
 				MessageBox.Show(BaseSearch.NumericFormatError);
 
 			return result;

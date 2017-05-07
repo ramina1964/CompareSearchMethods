@@ -29,7 +29,7 @@ namespace CompareSearchMethods.Model
 				{
 					TargetIndex = null,
 					TargetValue = value,
-					NoOfIters = noOfIterations
+					NoOfIterations = noOfIterations
 				};
 
 			var mid = (low + high) / 2;
@@ -38,7 +38,7 @@ namespace CompareSearchMethods.Model
 				{
 					TargetIndex = mid,
 					TargetValue = value,
-					NoOfIters = noOfIterations
+					NoOfIterations = noOfIterations
 				};
 
 			return (Data[mid] > value)
