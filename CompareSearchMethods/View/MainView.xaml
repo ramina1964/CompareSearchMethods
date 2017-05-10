@@ -30,7 +30,6 @@
 					<StackPanel Orientation="Vertical" Margin="0, 5, 0, 0" >
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" Content="No. of Entries" />
-
 							<TextBox Style="{StaticResource TextBoxStyle}" DockPanel.Dock="Right" Width ="35" IsEnabled ="{Binding IsReady}" >
 								<TextBox.Text>
 									<Binding Path="NoOfEntries" Mode="TwoWay" UpdateSourceTrigger="LostFocus"
@@ -41,7 +40,6 @@
 
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" Content="No. of Searches" />
-
 							<TextBox Name="TextBoxNoOfSearches" Style="{StaticResource TextBoxStyle}" Width ="35" IsEnabled ="{Binding IsReady}" >
 								<TextBox.Text>
 									<Binding Path="NoOfSearches" Mode="TwoWay" UpdateSourceTrigger="LostFocus"
