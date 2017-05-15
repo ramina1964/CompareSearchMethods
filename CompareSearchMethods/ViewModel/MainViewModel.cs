@@ -50,25 +50,9 @@ namespace CompareSearchMethods.ViewModel
 		public ISimulationResults LinearSearchResults { get; set; }
 		public ISimulationResults BinarySearchResults { get; set; }
 
-		public int NoOfEntries
-		{
-			get => _noOfEntries;
-			set
-			{
-				_noOfEntries = value;
-				OnPropertyChanged();
-			}
-		}
+		public int NoOfEntries { get; set; }
 
-		public long NoOfSearches
-		{
-			get => _noOfSearches;
-			set
-			{
-				_noOfSearches = value;
-				OnPropertyChanged();
-			}
-		}
+		public long NoOfSearches { get; set; }
 
 		public int TargetValue
 		{
@@ -224,8 +208,5 @@ namespace CompareSearchMethods.ViewModel
 
 		/***************************************** Private Fields ******************************************/
 		private int _targetValue;
-
-		private long _noOfSearches;
-		private int _noOfEntries;
 	}
 }
