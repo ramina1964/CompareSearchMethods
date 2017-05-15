@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,9 +51,26 @@ namespace CompareSearchMethods.ViewModel
 		public ISimulationResults LinearSearchResults { get; set; }
 		public ISimulationResults BinarySearchResults { get; set; }
 
-		public int NoOfEntries { get; set; }
+		public int NoOfEntries
+		{
+			get => _noOfEntries;
 
-		public long NoOfSearches { get; set; }
+			set
+			{
+				_noOfEntries = value;
+				OnPropertyErrorsChanged(nameof(NoOfSearches));
+			}
+		}
+
+		public int NoOfSearches
+		{
+			get => _noOfSearches;
+			set
+			{
+				_noOfSearches = value;
+				OnPropertyErrorsChanged(nameof(NoOfSearches));
+			}
+		}
 
 		public int TargetValue
 		{
@@ -75,6 +93,60 @@ namespace CompareSearchMethods.ViewModel
 
 
 		/***************************************** Private Methods *****************************************/
+		private void Validate()
+		{
+			Task.Run(() => DataValidation());
+		}
+
+		private void DataValidation()
+		{
+			List<string> listErrors;
+
+			#region NoOfEntries
+			//Validate No. of Entries property
+			if (PropErrors.TryGetValue(nameof(NoOfEntries), out listErrors) == false)
+				listErrors = new List<string>();
+
+			else
+				listErrors.Clear();
+
+			if (string.IsNullOrEmpty(nameof(NoOfEntries)))
+				listErrors.Add("No. of Entries is required.");
+
+			if (BaseSearch.MinNoOfEntries > NoOfEntries || NoOfEntries > BaseSearch.MaxNoOfEntries)
+				listErrors.Add(BaseSearch.NoOfEntriesError);
+
+			PropErrors[nameof(NoOfEntries)] = listErrors;
+
+			if (listErrors.Count > 0)
+			{
+				OnPropertyErrorsChanged(nameof(NoOfEntries));
+			}
+			#endregion NoOfEntries
+
+			#region NoOfSearches
+			//Validate No. of Searches property
+			if (PropErrors.TryGetValue(nameof(NoOfSearches), out listErrors) == false)
+				listErrors = new List<string>();
+
+			else
+				listErrors.Clear();
+
+			if (string.IsNullOrEmpty(nameof(NoOfSearches)))
+				listErrors.Add("No. of Searches is required.");
+
+			if (BaseSearch.MinNoOfSearches > NoOfSearches || NoOfSearches > BaseSearch.MaxNoOfSearches)
+				listErrors.Add(BaseSearch.NoOfSearchesError);
+
+			PropErrors[nameof(NoOfSearches)] = listErrors;
+
+			if (listErrors.Count > 0)
+			{
+				OnPropertyErrorsChanged(nameof(NoOfSearches));
+			}
+			#endregion NoOfSearches
+		}
+
 		private void Simulate(object obj)
 		{
 			IsSimulating = true;
@@ -198,15 +270,21 @@ namespace CompareSearchMethods.ViewModel
 
 		private bool IsInputValid()
 		{
-			var productValue = NoOfEntries * NoOfSearches;
-			var isNoOfEntriesInRange = BaseSearch.MinNoOfEntries <= NoOfEntries && NoOfEntries <= BaseSearch.MaxNoOfEntries;
-			var isNoOfSearchesInRange = BaseSearch.MinNoOfSearches <= NoOfSearches && NoOfSearches <= BaseSearch.MaxNoOfSearches;
-			var isProductInRange = MinProductValue <= productValue && productValue <= MaxProductValue;
+			Validate();
+			return !HasErrors;
 
-			return isNoOfEntriesInRange && isNoOfSearchesInRange && isProductInRange;
+			//var productValue = NoOfEntries * NoOfSearches;
+			//var isNoOfEntriesInRange = BaseSearch.MinNoOfEntries <= NoOfEntries && NoOfEntries <= BaseSearch.MaxNoOfEntries;
+			//var isNoOfSearchesInRange = BaseSearch.MinNoOfSearches <= NoOfSearches && NoOfSearches <= BaseSearch.MaxNoOfSearches;
+			//var isProductInRange = MinProductValue <= productValue && productValue <= MaxProductValue;
+
+			//return isNoOfEntriesInRange && isNoOfSearchesInRange && isProductInRange;
 		}
 
 		/***************************************** Private Fields ******************************************/
 		private int _targetValue;
+
+		private int _noOfEntries;
+		private int _noOfSearches;
 	}
 }

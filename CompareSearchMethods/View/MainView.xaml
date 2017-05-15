@@ -8,6 +8,7 @@
 	<Window.Resources>
 		<viewModel:NumStringConverter x:Key="NumStringConverter" />
 	</Window.Resources>
+	
 	<Page>
 		<Viewbox>
 			<Grid Margin="5">
@@ -30,20 +31,20 @@
 					<StackPanel Orientation="Vertical" Margin="0, 5, 0, 0" >
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" Content="No. of Entries" />
-							<TextBox Style="{StaticResource TextBoxStyle}" DockPanel.Dock="Right" Width ="35" IsEnabled ="{Binding IsReady}" >
+							<TextBox Style="{StaticResource TextErrorStyle}" DockPanel.Dock="Right" Width ="35" IsEnabled ="{Binding IsReady}" >
+								<!--Converter="{StaticResource NumStringConverter}-->
 								<TextBox.Text>
-									<Binding Path="NoOfEntries" Mode="TwoWay" UpdateSourceTrigger="LostFocus"
-											 Converter="{StaticResource NumStringConverter}" />
+									<Binding Path="NoOfEntries" Mode="TwoWay" UpdateSourceTrigger="LostFocus" ValidatesOnNotifyDataErrors="True" />
 								</TextBox.Text >
 							</TextBox>
 						</DockPanel>
 
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" Content="No. of Searches" />
-							<TextBox Name="TextBoxNoOfSearches" Style="{StaticResource TextBoxStyle}" Width ="35" IsEnabled ="{Binding IsReady}" >
+							<TextBox Style="{StaticResource TextErrorStyle}" Width ="35" IsEnabled ="{Binding IsReady}" >
+								<!--Converter="{StaticResource NumStringConverter}"-->
 								<TextBox.Text>
-									<Binding Path="NoOfSearches" Mode="TwoWay" UpdateSourceTrigger="LostFocus"
-											 Converter="{StaticResource NumStringConverter}" />
+									<Binding Path="NoOfSearches" Mode="TwoWay" UpdateSourceTrigger="LostFocus" ValidatesOnNotifyDataErrors="True" />
 								</TextBox.Text >
 							</TextBox>
 
