@@ -7,7 +7,7 @@ using PropertyChanged;
 
 namespace CompareSearchMethods.ViewModel
 {
-	[ImplementPropertyChanged]
+	[AddINotifyPropertyChangedInterface]
 	public class ViewModelBase : INotifyDataErrorInfo
 	{
 		#region INotifyDataErrorInfo

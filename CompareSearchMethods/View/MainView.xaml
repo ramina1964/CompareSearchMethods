@@ -123,7 +123,7 @@
 							<Label Style="{StaticResource LabelStyle}" DockPanel.Dock ="Left" Content="Target Value" />
 
 							<TextBox Style="{StaticResource TextBoxStyle}" DockPanel.Dock ="Right" Width="50" IsEnabled ="{Binding IsReady}"
-									 Text="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=LostFocus}">
+									 Text="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" >
 							</TextBox>
 
 						</DockPanel>
