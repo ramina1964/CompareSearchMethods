@@ -48,20 +48,20 @@ namespace CompareSearchMethods.Model
 		/**************************************** Abstract Methods *****************************************/
 		public abstract ISearchItem FindItem(int value);
 
-		/******************************* Constants & Static & Readonly Fields ******************************/
+		/******************************* Constants & Static & Read-only Fields ******************************/
 
-		public static int MinNoOfEntries = (int)1e3;
-		public static int MaxNoOfEntries = (int)1e7;
-		public static int MinNoOfSearches = (int)1e2;
-		public static int MaxNoOfSearches = (int)1e6;
+		//public static int MinNoOfEntries = Settings.Default.MinNoOfEntries;
+		//public static int MaxNoOfEntries = Settings.Default.MaxNoOfEntries;
+		//public static int MinNoOfSearches = Settings.Default.MinNoOfSearches;
+		//public static int MaxNoOfSearches = Settings.Default.MaxNoOfSearches;
 
-		public static readonly string NoOfEntriesError =
-			$"No of entries must be an integer in the interval [{MinNoOfEntries}, {MaxNoOfEntries}].";
+		//public static readonly string NoOfEntriesTooSmallError =
+		//	"No of entries must be an integer in the interval [{0}, {1}].";
 
-		public static readonly string NoOfSearchesError =
-			$"No. of searches must be an integer in the interval [{MinNoOfSearches}, {MaxNoOfSearches}].";
+		//public static readonly string NoOfSearchesError =
+		//	$"No. of searches must be an integer in the interval [{MinNoOfSearches}, {MaxNoOfSearches}].";
 
-		public static readonly string NumericFormatError = "The entered value is not a numeric constant.";
+		//public static readonly string NumericFormatError = "The entered value is not a numeric constant.";
 
 		public static string IndexOutOfRangeError;
 

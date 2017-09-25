@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CompareSearchMethods.Model.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MinNoOfEntries" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="MaxNoOfEntries" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10000000</Value>
+    </Setting>
+    <Setting Name="MinNoOfSearches" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="MaxNoOfSearches" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1000000</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

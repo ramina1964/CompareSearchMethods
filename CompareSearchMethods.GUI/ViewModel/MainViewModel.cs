@@ -5,20 +5,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using CompareSearchMethods.GUI.Commands;
 using CompareSearchMethods.Model;
+using CompareSearchMethods.Model.Properties;
 using CompareSearchMethods.Model.Interfaces;
+using GalaSoft.MvvmLight.Command;
 
 namespace CompareSearchMethods.GUI.ViewModel
 {
 	/********************************************* Constructors ********************************************/
-	public class MainViewModel : ViewModelBase
+	public class MainViewModel : MyViewModelBase
 	{
 		public MainViewModel(ISearchItem searchItem)
 		{
 			SearchItem = searchItem;
-			SimulateCommand = new RelayCommand(CanSimulate, Simulate);
-			CancelCommand = new RelayCommand(CanCancel, Cancel);
+			SimulateCommand = new RelayCommand(Simulate, CanSimulate);
+			CancelCommand = new RelayCommand(Cancel, CanCancel);
 
 			NoOfEntries = (int)5e5;
 			NoOfSearches = (int)1e3;
@@ -34,17 +35,30 @@ namespace CompareSearchMethods.GUI.ViewModel
 			$"Product of No. of searches and No. of entries must be in the interval [{MinProductValue}, {MaxProductValue}].";
 
 		/************************************ Public Events & Delegates ************************************/
-		public ICommand SimulateCommand { get; set; }
-		public ICommand CancelCommand { get; set; }
+		public RelayCommand  SimulateCommand { get; set; }
+		public RelayCommand CancelCommand { get; set; }
 
 		/******************************************* Properties ********************************************/
 		public ISearchItem SearchItem { get; set; }
-		public bool IsSimulating { get; set; }
+
+		public bool IsSimulating
+		{
+			get => _isSimulating;
+			set => Set(ref _isSimulating, value);
+		}
 		public bool IsReady => !IsSimulating;
 
-		public Visibility ProgressBarVisibility { get; set; }
+		public Visibility ProgressBarVisibility
+		{
+			get => _progressBarVisibility;
+			set => Set(ref _progressBarVisibility, value);
+		}
 
-		public double ProgressBarValue { get; set; }
+		public double ProgressBarValue
+		{
+			get => _progressBarValue;
+			set => Set(ref _progressBarValue, value);
+		}
 
 		public string ProgressBarText => Math.Round(ProgressBarValue, 0) + "%";
 
@@ -54,22 +68,13 @@ namespace CompareSearchMethods.GUI.ViewModel
 		public int NoOfEntries
 		{
 			get => _noOfEntries;
-
-			set
-			{
-				_noOfEntries = value;
-				OnPropertyErrorsChanged(nameof(NoOfSearches));
-			}
+			set => Set(ref _noOfEntries, value);
 		}
 
 		public int NoOfSearches
 		{
 			get => _noOfSearches;
-			set
-			{
-				_noOfSearches = value;
-				OnPropertyErrorsChanged(nameof(NoOfSearches));
-			}
+			set => Set(ref _noOfSearches, value);
 		}
 
 		public int TargetValue
@@ -78,12 +83,16 @@ namespace CompareSearchMethods.GUI.ViewModel
 
 			set
 			{
-				_targetValue = value;
-				TargetIndex = BinarySearchType.FindItem(value).TargetIndex;
+				if (Set(ref _targetValue, value))
+				{ TargetIndex = BinarySearchType.FindItem(value).TargetIndex; }
 			}
 		}
 
-		public int? TargetIndex { get; set; }
+		public int? TargetIndex
+		{
+			get => _targetIndex;
+			set => Set(ref _targetIndex, value);
+		}
 
 		public string Entries { get; set; }
 
@@ -111,8 +120,8 @@ namespace CompareSearchMethods.GUI.ViewModel
 			if (string.IsNullOrEmpty(nameof(NoOfEntries)))
 				listErrors.Add("No. of Entries is required.");
 
-			if (BaseSearch.MinNoOfEntries > NoOfEntries || NoOfEntries > BaseSearch.MaxNoOfEntries)
-				listErrors.Add(BaseSearch.NoOfEntriesError);
+			if (Settings.Default.MinNoOfEntries > NoOfEntries || NoOfEntries > Settings.Default.MaxNoOfEntries)
+				listErrors.Add(Resources.NoOfEntriesTooSmallError);
 
 			PropErrors[nameof(NoOfEntries)] = listErrors;
 
@@ -133,8 +142,8 @@ namespace CompareSearchMethods.GUI.ViewModel
 			if (string.IsNullOrEmpty(nameof(NoOfSearches)))
 				listErrors.Add("No. of Searches is required.");
 
-			if (BaseSearch.MinNoOfSearches > NoOfSearches || NoOfSearches > BaseSearch.MaxNoOfSearches)
-				listErrors.Add(BaseSearch.NoOfSearchesError);
+			if (Settings.Default.MinNoOfSearches > NoOfSearches || NoOfSearches > Settings.Default.MaxNoOfSearches)
+				listErrors.Add(Resources.NoOfSearchesTooLargeError);
 
 			PropErrors[nameof(NoOfSearches)] = listErrors;
 
@@ -145,7 +154,17 @@ namespace CompareSearchMethods.GUI.ViewModel
 			#endregion NoOfSearches
 		}
 
-		private void Simulate(object obj)
+		private bool CanSimulate()
+		{
+			return IsReady && IsInputValid();
+		}
+
+		private bool CanCancel()
+		{
+			return IsReady && IsInputValid();
+		}
+
+		private void Simulate()
 		{
 			IsSimulating = true;
 			ProgressBarVisibility = Visibility.Visible;
@@ -157,16 +176,10 @@ namespace CompareSearchMethods.GUI.ViewModel
 			IsSimulating = false;
 		}
 
-		private void Cancel(object obj)
+		private void Cancel()
 		{
 
 		}
-
-		private bool CanSimulate(object obj)
-		{ return IsReady && IsInputValid(); }
-
-		private bool CanCancel(object obj)
-		{ return IsSimulating; }
 
 		private async void Simulate(params BaseSearch[] searchTypes)
 		{
@@ -284,5 +297,9 @@ namespace CompareSearchMethods.GUI.ViewModel
 
 		private int _noOfEntries;
 		private int _noOfSearches;
+		private bool _isSimulating;
+		private Visibility _progressBarVisibility;
+		private double _progressBarValue;
+		private int? _targetIndex;
 	}
 }

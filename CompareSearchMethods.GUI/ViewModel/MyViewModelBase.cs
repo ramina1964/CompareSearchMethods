@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using PropertyChanged;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace CompareSearchMethods.GUI.ViewModel
 {
-	[AddINotifyPropertyChangedInterface]
-	public class ViewModelBase : INotifyDataErrorInfo
+	public class MyViewModelBase : ViewModelBase, INotifyDataErrorInfo
 	{
 		#region INotifyDataErrorInfo
 		public IEnumerable GetErrors(string propertyName)

@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using CompareSearchMethods.Model;
+using CompareSearchMethods.Model.Properties;
 
 namespace CompareSearchMethods.GUI.ViewModel
 {
@@ -42,8 +42,8 @@ namespace CompareSearchMethods.GUI.ViewModel
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var str = value as string;
-			if (!double.TryParse(str, out double result))
-				MessageBox.Show(BaseSearch.NumericFormatError);
+			if (!double.TryParse(str, out var result))
+				MessageBox.Show(Resources.InvalidIntegerError);
 
 			return result;
 		}

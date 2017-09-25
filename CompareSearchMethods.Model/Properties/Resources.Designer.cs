@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompareSearchMethods.GUI.Properties {
+namespace CompareSearchMethods.Model.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace CompareSearchMethods.GUI.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CompareSearchMethods.GUI.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CompareSearchMethods.Model.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,60 @@ namespace CompareSearchMethods.GUI.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; must be a valid integer..
+        /// </summary>
+        public static string InvalidIntegerError {
+            get {
+                return ResourceManager.GetString("InvalidIntegerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;No of entries must be an integer in the interval [{0}, {1}].&quot;.
+        /// </summary>
+        public static string NoOfEntriesTooLargeError {
+            get {
+                return ResourceManager.GetString("NoOfEntriesTooLargeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;No of entries must be an integer in the interval [{0}, {1}].&quot;.
+        /// </summary>
+        public static string NoOfEntriesTooSmallError {
+            get {
+                return ResourceManager.GetString("NoOfEntriesTooSmallError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;No of searches must be an integer in the interval [{0}, {1}].&quot;.
+        /// </summary>
+        public static string NoOfSearchesTooLargeError {
+            get {
+                return ResourceManager.GetString("NoOfSearchesTooLargeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;No of searches must be an integer in the interval [{0}, {1}].&quot;.
+        /// </summary>
+        public static string NoOfSearchesTooSmallError {
+            get {
+                return ResourceManager.GetString("NoOfSearchesTooSmallError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; can not be null, empty or exclusively contain white space..
+        /// </summary>
+        public static string ValueNullOrWhiteSpaceError {
+            get {
+                return ResourceManager.GetString("ValueNullOrWhiteSpaceError", resourceCulture);
             }
         }
     }

@@ -117,4 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidIntegerError" xml:space="preserve">
+    <value>'{0}' must be a valid integer.</value>
+  </data>
+  <data name="NoOfEntriesTooLargeError" xml:space="preserve">
+    <value>"No of entries must be an integer in the interval [{0}, {1}]."</value>
+  </data>
+  <data name="NoOfEntriesTooSmallError" xml:space="preserve">
+    <value>"No of entries must be an integer in the interval [{0}, {1}]."</value>
+  </data>
+  <data name="NoOfSearchesTooLargeError" xml:space="preserve">
+    <value>"No of searches must be an integer in the interval [{0}, {1}]."</value>
+  </data>
+  <data name="NoOfSearchesTooSmallError" xml:space="preserve">
+    <value>"No of searches must be an integer in the interval [{0}, {1}]."</value>
+  </data>
+  <data name="ValueNullOrWhiteSpaceError" xml:space="preserve">
+    <value>'{0}' can not be null, empty or exclusively contain white space.</value>
+  </data>
 </root>
