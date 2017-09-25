@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareSearchMethods", "CompareSearchMethods\CompareSearchMethods.csproj", "{6B84D859-9BBB-4A51-9CE9-26671F23CF40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareSearchMethods.GUI", "CompareSearchMethods\CompareSearchMethods.GUI.csproj", "{6B84D859-9BBB-4A51-9CE9-26671F23CF40}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareSearchMethods.Test", "CompareSearchMethods.Test\CompareSearchMethods.Test.csproj", "{58B90AD1-76FA-44FA-B12C-968C383A43D0}"
 EndProject
@@ -24,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA556FAA-3694-4405-A1C6-CA0CF174E4A7}
 	EndGlobalSection
 EndGlobal

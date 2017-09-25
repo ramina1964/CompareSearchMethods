@@ -1,5 +1,7 @@
 ﻿
-namespace CompareSearchMethods.Model
+using CompareSearchMethods.GUI.Model.Interfaces;
+
+namespace CompareSearchMethods.GUI.Model
 {
 	public class SimulationResults : ISimulationResults
 	{

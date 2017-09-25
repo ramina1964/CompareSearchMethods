@@ -1,11 +1,11 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using PropertyChanged;
 
-namespace CompareSearchMethods.ViewModel
+namespace CompareSearchMethods.GUI.ViewModel
 {
 	[AddINotifyPropertyChangedInterface]
 	public class ViewModelBase : INotifyDataErrorInfo

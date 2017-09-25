@@ -1,6 +1,7 @@
-﻿using CompareSearchMethods.Model.Interfaces;
+﻿using CompareSearchMethods.GUI.Model.Interfaces;
 
-namespace CompareSearchMethods.Model
+
+namespace CompareSearchMethods.GUI.Model
 {
 	public class LinearSearch : BaseSearch
 	{

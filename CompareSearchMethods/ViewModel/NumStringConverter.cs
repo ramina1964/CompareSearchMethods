@@ -1,18 +1,17 @@
-﻿using System;
+﻿using CompareSearchMethods.GUI.Model;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using CompareSearchMethods.Model;
 
-namespace CompareSearchMethods.ViewModel
+namespace CompareSearchMethods.GUI.ViewModel
 {
 	public class NumStringConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			const double limitAbsLog = 3;
-			var db = value as double?;
-			var isAbsLogSmall = db != null && Math.Abs(Math.Log10(db.Value)) < limitAbsLog;
+			var isAbsLogSmall = value is double db && Math.Abs(Math.Log10(db)) < limitAbsLog;
 
 			if (value == null)
 			{ return null; }

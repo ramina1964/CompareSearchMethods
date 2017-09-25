@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CompareSearchMethods.GUI.Model.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using CompareSearchMethods.Model.Interfaces;
 
-namespace CompareSearchMethods.Model
+namespace CompareSearchMethods.GUI.Model
 {
 	public abstract class BaseSearch
 	{
