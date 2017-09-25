@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using CompareSearchMethods.Model;
+using CompareSearchMethods.GUI.Model;
 
-namespace CompareSearchMethods.ViewModel
+namespace CompareSearchMethods.GUI.ViewModel
 {
 	public class NumStringConverter : IValueConverter
 	{

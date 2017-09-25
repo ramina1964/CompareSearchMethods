@@ -1,15 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using CompareSearchMethods.Commands;
-using CompareSearchMethods.Model;
-using CompareSearchMethods.Model.Interfaces;
+using CompareSearchMethods.GUI.Commands;
+using CompareSearchMethods.GUI.Model;
+using CompareSearchMethods.GUI.Model.Interfaces;
 
-namespace CompareSearchMethods.ViewModel
+namespace CompareSearchMethods.GUI.ViewModel
 {
 	/********************************************* Constructors ********************************************/
 	public class MainViewModel : ViewModelBase

@@ -1,7 +1,7 @@
-﻿using CompareSearchMethods.Model;
+using CompareSearchMethods.GUI.Model;
 using NUnit.Framework;
 
-namespace CompareSearchMethods.Test
+namespace CompareSearchMethods.GUI.Test
 {
 	[TestFixture]
 	public class BinarySearchTests

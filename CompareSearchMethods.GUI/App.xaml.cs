@@ -1,6 +1,6 @@
-﻿using System.Windows;
+using System.Windows;
 
-namespace CompareSearchMethods
+namespace CompareSearchMethods.GUI
 {
     /// <summary>
     /// Interaction logic for App.xaml
