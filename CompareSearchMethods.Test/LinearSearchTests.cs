@@ -1,7 +1,7 @@
-using CompareSearchMethods.GUI.Model;
+using CompareSearchMethods.Model;
 using NUnit.Framework;
 
-namespace CompareSearchMethods.GUI.Test
+namespace CompareSearchMethods.Test
 {
 	[TestFixture]
 	public class LinearSearchTests

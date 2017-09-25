@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using CompareSearchMethods.GUI.Commands;
-using CompareSearchMethods.GUI.Model;
-using CompareSearchMethods.GUI.Model.Interfaces;
+using CompareSearchMethods.Model;
+using CompareSearchMethods.Model.Interfaces;
 
 namespace CompareSearchMethods.GUI.ViewModel
 {
@@ -100,11 +100,9 @@ namespace CompareSearchMethods.GUI.ViewModel
 
 		private void DataValidation()
 		{
-			List<string> listErrors;
-
 			#region NoOfEntries
 			//Validate No. of Entries property
-			if (PropErrors.TryGetValue(nameof(NoOfEntries), out listErrors) == false)
+			if (PropErrors.TryGetValue(nameof(NoOfEntries), out var listErrors) == false)
 				listErrors = new List<string>();
 
 			else

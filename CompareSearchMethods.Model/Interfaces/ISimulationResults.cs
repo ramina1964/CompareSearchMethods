@@ -1,5 +1,5 @@
 
-namespace CompareSearchMethods.GUI.Model
+namespace CompareSearchMethods.Model.Interfaces
 {
 	public interface ISimulationResults
 	{
