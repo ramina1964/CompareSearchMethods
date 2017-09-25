@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace CompareSearchMethods.GUI.Commands
+namespace CompareSearchMethods.Commands
 {
 	public class RelayCommand : ICommand
 	{

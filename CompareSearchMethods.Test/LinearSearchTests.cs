@@ -1,5 +1,5 @@
-﻿using CompareSearchMethods.GUI.Model;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using CompareSearchMethods.Model;
 
 namespace CompareSearchMethods.Test
 {

@@ -1,8 +1,8 @@
-﻿using CompareSearchMethods.GUI.Model;
-using CompareSearchMethods.GUI.Model.Interfaces;
-using CompareSearchMethods.GUI.ViewModel;
+﻿using CompareSearchMethods.Model;
+using CompareSearchMethods.Model.Interfaces;
+using CompareSearchMethods.ViewModel;
 
-namespace CompareSearchMethods.GUI.View
+namespace CompareSearchMethods.View
 {
 	public partial class MainView
 	{

@@ -7,8 +7,8 @@
     <ProjectGuid>{6B84D859-9BBB-4A51-9CE9-26671F23CF40}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CompareSearchMethods.GUI</RootNamespace>
-    <AssemblyName>CompareSearchMethods.GUI</AssemblyName>
+    <RootNamespace>CompareSearchMethods</RootNamespace>
+    <AssemblyName>CompareSearchMethods</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,9 +36,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>CompareSearchMethods.GUI.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
@@ -72,7 +69,7 @@
     <Compile Include="Model\BaseSearch.cs" />
     <Compile Include="Model\BinarySearch.cs" />
     <Compile Include="Model\Interfaces\ISearchItem.cs" />
-    <Compile Include="Model\Interfaces\ISimulationResults.cs" />
+    <Compile Include="Model\ISimulationResults.cs" />
     <Compile Include="Model\SearchItem.cs" />
     <Compile Include="Model\LinearSearch.cs" />
     <Compile Include="Model\SimulationResults.cs" />

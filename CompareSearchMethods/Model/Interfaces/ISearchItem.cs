@@ -1,4 +1,4 @@
-﻿namespace CompareSearchMethods.GUI.Model.Interfaces
+﻿namespace CompareSearchMethods.Model.Interfaces
 {
 	public interface ISearchItem
 	{
