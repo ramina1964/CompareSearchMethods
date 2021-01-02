@@ -4,16 +4,13 @@ namespace SearchMethods.Model
 {
 	public class BinarySearch : BaseSearch
 	{
-		/****************************************** Constructors *******************************************/
 		public BinarySearch(ISearchItem searchItem, int noOfEntries)
 			: base(searchItem, noOfEntries)
 		{ }
 
-		/*************************************** Overridden Methods ****************************************/
 		public override ISearchItem FindItem(int value)
 		{ return FindItemWithBinarySearch(value); }
 
-		/**************************************** Private Methods ******************************************/
 		private ISearchItem FindItemWithBinarySearch(int value)
 		{
 			const int noOfIterations = 0;
