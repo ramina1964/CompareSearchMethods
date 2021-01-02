@@ -1,5 +1,4 @@
 using CompareSearchMethods.Model;
-using CompareSearchMethods.Model.Interfaces;
 using CompareSearchMethods.GUI.ViewModel;
 
 namespace CompareSearchMethods.GUI.View

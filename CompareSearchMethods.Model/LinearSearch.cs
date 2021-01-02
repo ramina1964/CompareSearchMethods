@@ -1,4 +1,4 @@
-using CompareSearchMethods.Model.Interfaces;
+using CompareSearchMethods.Model;
 
 namespace CompareSearchMethods.Model
 {

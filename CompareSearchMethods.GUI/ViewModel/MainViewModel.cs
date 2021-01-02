@@ -7,7 +7,6 @@ using System.Windows;
 using System.Windows.Input;
 using CompareSearchMethods.Model;
 using CompareSearchMethods.Model.Properties;
-using CompareSearchMethods.Model.Interfaces;
 using GalaSoft.MvvmLight.Command;
 
 namespace CompareSearchMethods.GUI.ViewModel
