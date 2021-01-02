@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using SearchMethods.Model;
 using SearchMethods.Model.Properties;
 using GalaSoft.MvvmLight.Command;
@@ -12,7 +11,7 @@ using GalaSoft.MvvmLight.Command;
 namespace SearchMethods.GUI.ViewModel
 {
 	/********************************************* Constructors ********************************************/
-	public class MainViewModel : MyViewModelBase
+	public class MainViewModel : ExtendedViewModelBase
 	{
 		public MainViewModel(ISearchItem searchItem)
 		{
@@ -282,13 +281,6 @@ namespace SearchMethods.GUI.ViewModel
 		{
 			Validate();
 			return !HasErrors;
-
-			//var productValue = NoOfEntries * NoOfSearches;
-			//var isNoOfEntriesInRange = BaseSearch.MinNoOfEntries <= NoOfEntries && NoOfEntries <= BaseSearch.MaxNoOfEntries;
-			//var isNoOfSearchesInRange = BaseSearch.MinNoOfSearches <= NoOfSearches && NoOfSearches <= BaseSearch.MaxNoOfSearches;
-			//var isProductInRange = MinProductValue <= productValue && productValue <= MaxProductValue;
-
-			//return isNoOfEntriesInRange && isNoOfSearchesInRange && isProductInRange;
 		}
 
 		/***************************************** Private Fields ******************************************/
