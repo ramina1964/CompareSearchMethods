@@ -80,7 +80,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Validation\DataValidation.cs" />
+    <Compile Include="InputValidation.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NumStringConverter.cs" />
     <Page Include="View\MainView.xaml">

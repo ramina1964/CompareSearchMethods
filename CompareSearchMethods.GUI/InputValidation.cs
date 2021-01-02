@@ -2,12 +2,11 @@
 using CompareSearchMethods.GUI.ViewModel;
 using FluentValidation;
 
-
-namespace CompareSearchMethods.GUI.Validation
+namespace CompareSearchMethods.GUI
 {
-    public class DataValidation : AbstractValidator<MainViewModel>
+    public class InputValidation : AbstractValidator<MainViewModel>
     {
-        public DataValidation() => ValidationRules();
+        public InputValidation() => ValidationRules();
 
         private void ValidationRules()
         {
@@ -23,7 +22,7 @@ namespace CompareSearchMethods.GUI.Validation
                 .WithMessage(sm => string.Format(Resources.NoOfEntriesTooSmallError, nameof(sm.NoOfEntries), Settings.Default.MaxNoOfEntries));
 
             // No. of Searches
-            RuleFor(sm => sm.NoOfEntries)
+            RuleFor(sm => sm.NoOfSearches)
                 .NotEmpty()
                 .WithMessage(sm => string.Format(Resources.ValueNullOrWhiteSpaceError, nameof(sm.NoOfSearches)))
                 .Must(noOfSearches => int.TryParse(noOfSearches.ToString(), out int _))
