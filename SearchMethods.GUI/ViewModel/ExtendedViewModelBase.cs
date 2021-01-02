@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 namespace SearchMethods.GUI.ViewModel
 {
-	public class MyViewModelBase : ViewModelBase, INotifyDataErrorInfo
+	public class ExtendedViewModelBase : ViewModelBase, INotifyDataErrorInfo
 	{
 		#region INotifyDataErrorInfo
 		public IEnumerable GetErrors(string propertyName)
@@ -37,8 +36,7 @@ namespace SearchMethods.GUI.ViewModel
 		public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 		#endregion INotifyDataErrorInfo
 
-		protected void OnPropertyErrorsChanged(string p)
-		{ ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(p)); }
+		protected void OnPropertyErrorsChanged(string p) => ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(p));
 
 		protected readonly Dictionary<string, List<string>> PropErrors = new Dictionary<string, List<string>>();
 	}

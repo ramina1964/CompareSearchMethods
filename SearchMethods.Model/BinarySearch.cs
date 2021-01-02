@@ -1,5 +1,3 @@
-using SearchMethods.Model;
-
 namespace SearchMethods.Model
 {
 	public class BinarySearch : BaseSearch
