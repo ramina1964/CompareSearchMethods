@@ -2,12 +2,9 @@ namespace SearchMethods.Model
 {
     public class LinearSearch : BaseSearch
     {
-        /****************************************** Constructors *******************************************/
-        public LinearSearch(ISearchItem searchItem, int noOfEntries)
-            : base(searchItem, noOfEntries)
+        public LinearSearch(ISearchItem searchItem, int noOfEntries) : base(searchItem, noOfEntries)
         { }
 
-        /*************************************** Overridden Methods ****************************************/
         public override ISearchItem FindItem(int value)
         {
             int? targetIndex = null;

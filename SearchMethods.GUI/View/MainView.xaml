@@ -83,7 +83,6 @@
 								<Label Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}" Width ="50" HorizontalContentAlignment="Right"
 									   Content="{Binding LinearAvgElapsedTime, Converter={StaticResource NumStringConverter},
 									   Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
 							</Grid>
 						</GroupBox>
 
