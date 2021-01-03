@@ -17,8 +17,8 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
 				</Grid.RowDefinitions>
 
 				<Grid.ColumnDefinitions>
@@ -79,7 +79,7 @@
 
 								<Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="95"
 									   HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Avg. Elapsed Time (ms)" />
-								
+
 								<Label Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}" Width ="50" HorizontalContentAlignment="Right"
 									   Content="{Binding LinearAvgElapsedTime, Converter={StaticResource NumStringConverter},
 									   Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -117,7 +117,7 @@
 					</StackPanel>
 				</GroupBox>
 
-                <!-- ValueSearch: Given a TargetValue, find the TargetIndex. -->
+				<!-- ValueSearch: Given a TargetValue, find the TargetIndex. -->
 				<GroupBox Style ="{StaticResource GroupBoxStyle}" Header="Value Search" Grid.Row="1" Grid.Column="0" >
 
 					<StackPanel Orientation="Vertical" >
@@ -154,16 +154,26 @@
 					</StackPanel>
 				</GroupBox>
 
-                <!-- Progress Development -->
-				<StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-						   HorizontalAlignment="Center" VerticalAlignment="Center" Width ="Auto" Margin="5, 0, 0, 0" >
+				<!-- Progress Development -->
+				<GroupBox Grid.Row="2" Grid.ColumnSpan="2"
+						   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width ="Auto" Margin="5, 0, 0, 0" Header="Progress Status" >
 
-					<ProgressBar Style="{StaticResource ProgressBarStyle}" Visibility="{Binding ProgressBarVisibility}"
-								 Value="{Binding ProgressBarValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+					<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+						<Grid.RowDefinitions>
+							<RowDefinition />
+						</Grid.RowDefinitions>
 
-					<Label Style="{StaticResource LabelStyle}" Visibility="{Binding ProgressBarVisibility}"
-						   Content="{Binding ProgressBarLabel }" />
-				</StackPanel>
+						<ProgressBar Grid.Row="0" Width="Auto" Height="25" Visibility="{Binding ProgressBarVisibility}"
+									 Value="{Binding ProgressBarValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+									 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+									 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+						<Label Grid.Row="0" Width="45" Height="Auto" Style="{StaticResource LabelStyle}"
+							   Visibility="{Binding ProgressBarVisibility}" Content="{Binding ProgressBarLabel}"
+							   HorizontalAlignment="Center" VerticalAlignment="Center"
+							   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+					</Grid>
+				</GroupBox>
 			</Grid>
 		</Viewbox>
 	</Page>
