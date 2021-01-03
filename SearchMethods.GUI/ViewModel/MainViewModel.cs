@@ -23,7 +23,7 @@ namespace SearchMethods.GUI.ViewModel
             NoOfSearches = (int)1e3;
 
             IsSimulating = false;
-            ProgressBarVisibility = Visibility.Collapsed;
+            ProgressBarVisibility = Visibility.Hidden;
         }
 
         public static long MinProductValue = (long)1e5;
@@ -69,10 +69,21 @@ namespace SearchMethods.GUI.ViewModel
         public double ProgressBarValue
         {
             get => _progressBarValue;
-            set => Set(ref _progressBarValue, value);
+            set
+            {
+                if (Set(ref _progressBarValue, value))
+                {
+                    ProgressBarLabel = Math.Round(ProgressBarValue, 0) + "%";
+                    RaisePropertyChanged(nameof(ProgressBarLabel));
+                }
+            }
         }
 
-        public string ProgressBarText => Math.Round(ProgressBarValue, 0) + "%";
+        public string ProgressBarLabel
+        {
+            get => _progressBarLabel;
+            set => Set(ref _progressBarLabel, value);
+        }
 
         public ISimulationResults LinearSearchResults { get; set; }
 
@@ -96,8 +107,15 @@ namespace SearchMethods.GUI.ViewModel
 
             set
             {
-                if (Set(ref _targetValue, value))
-                { TargetIndex = BinarySearch.FindItem(value).TargetIndex; }
+                var valid = int.TryParse(value.ToString(), out int result);
+                if (!valid)
+                { return; }
+
+                if (Set(ref _targetValue, result))
+                {
+                    var index = BinarySearch.FindItem(value).TargetIndex;
+                    TargetIndex = index.HasValue ? index : null;
+                }
             }
         }
 
@@ -186,16 +204,40 @@ namespace SearchMethods.GUI.ViewModel
 
         private bool CanCancel() => IsIdle && IsInputValid();
 
+        //private void Simulate()
+        //{
+        //    IsSimulating = true;
+        //    ProgressBarVisibility = Visibility.Visible;
+        //    LinearSearch = new LinearSearch(SearchItem, NoOfEntries);
+        //    BinarySearch = new BinarySearch(SearchItem, NoOfEntries);
+        //    var searches = new BaseSearch[] { LinearSearch, BinarySearch };
+
+        //    new Thread(() => Simulate(searches)).Start();
+        //    IsSimulating = false;
+        //}
+
         private void Simulate()
         {
             IsSimulating = true;
-            ProgressBarVisibility = Visibility.Visible;
-            LinearSearch = new LinearSearch(SearchItem, NoOfEntries);
-            BinarySearch = new BinarySearch(SearchItem, NoOfEntries);
-            var searches = new BaseSearch[] { LinearSearch, BinarySearch };
-
+            var searches = Initialize();
             new Thread(() => Simulate(searches)).Start();
             IsSimulating = false;
+        }
+
+        private BaseSearch[] Initialize()
+        {
+            ProgressBarVisibility = Visibility.Visible;
+
+            ProgressBarLabel = string.Empty;
+            LinearSearch = new LinearSearch(SearchItem, NoOfEntries);
+            BinarySearch = new BinarySearch(SearchItem, NoOfEntries);
+
+            LinearAvgNoOfIterations = 0;
+            LinearAvgElapsedTime = 0;
+            BinaryAvgNoOfIterations = 0;
+            BinaryAvgElapsedTime = 0;
+
+            return new BaseSearch[] { LinearSearch, BinarySearch };
         }
 
         private void Cancel()
@@ -237,7 +279,7 @@ namespace SearchMethods.GUI.ViewModel
                 stopwatch.Stop();
                 var timeInSec = (double)stopwatch.ElapsedMilliseconds / 1000;
                 ProgressBarValue = 0;
-                ProgressBarVisibility = Visibility.Collapsed;
+                ProgressBarVisibility = Visibility.Hidden;
 
                 var elapsedTimeInSec = Math.Round(timeInSec, 1);
                 return SimulationResults(totalNoOfIterations, elapsedTimeInSec);
@@ -260,7 +302,7 @@ namespace SearchMethods.GUI.ViewModel
                 stopwatch.Stop();
                 var timeInSec = (double)stopwatch.ElapsedMilliseconds / 1000;
                 ProgressBarValue = 0;
-                ProgressBarVisibility = Visibility.Collapsed;
+                ProgressBarVisibility = Visibility.Hidden;
 
                 var elapsedTimeInSec = Math.Round(timeInSec, 5);
                 return SimulationResults(totalNoOfIterations, elapsedTimeInSec);
@@ -320,6 +362,7 @@ namespace SearchMethods.GUI.ViewModel
         private bool _isIdle;
         private Visibility _progressBarVisibility;
         private double _progressBarValue;
+        private string _progressBarLabel;
         private int? _targetIndex;
         private double _linearAvgNoOfIterations;
         private double _linearAvgElapsedTime;
