@@ -17,9 +17,8 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
 				</Grid.RowDefinitions>
 
 				<Grid.ColumnDefinitions>
@@ -118,6 +117,7 @@
 					</StackPanel>
 				</GroupBox>
 
+                <!-- ValueSearch: Given a TargetValue, find the TargetIndex. -->
 				<GroupBox Style ="{StaticResource GroupBoxStyle}" Header="Value Search" Grid.Row="1" Grid.Column="0" >
 
 					<StackPanel Orientation="Vertical" >
@@ -139,6 +139,7 @@
 					</StackPanel>
 				</GroupBox>
 
+				<!-- Simulation Panel -->
 				<GroupBox Style ="{StaticResource GroupBoxStyle}" Header="Simulation Panel" Grid.Row="1" Grid.Column="1"
 						  HorizontalAlignment="Center" VerticalAlignment="Center" >
 					<StackPanel Orientation="Vertical" Width="Auto" Height="Auto"
@@ -153,21 +154,8 @@
 					</StackPanel>
 				</GroupBox>
 
-				<DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-						   HorizontalAlignment="Center" VerticalAlignment="Center" Width ="Auto" Margin="5, 0, 0, 0" >
-
-					<Viewbox Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
-						<DockPanel>
-							<Label Style="{StaticResource LabelStyle}" DockPanel.Dock="Left" Margin="5" />
-
-							<TextBox Style="{StaticResource TextErrorStyle}" IsReadOnly="True" 
-									 Text="{Binding Entries, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-							</TextBox>
-						</DockPanel>
-					</Viewbox>
-				</DockPanel>
-
-				<StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                <!-- Progress Development -->
+				<StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
 						   HorizontalAlignment="Center" VerticalAlignment="Center" Width ="Auto" Margin="5, 0, 0, 0" >
 
 					<ProgressBar Style="{StaticResource ProgressBarStyle}" Visibility="{Binding ProgressBarVisibility}"
