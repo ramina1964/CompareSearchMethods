@@ -31,7 +31,7 @@
 					<StackPanel Orientation="Vertical" Margin="0, 5, 0, 0" >
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" Content="No. of Entries" />
-							<TextBox Style="{StaticResource TextErrorStyle}" DockPanel.Dock="Right" Width ="35" IsEnabled ="{Binding IsReady}" >
+							<TextBox Style="{StaticResource TextErrorStyle}" DockPanel.Dock="Right" Width ="35" IsEnabled ="{Binding IsIdle}" >
 								<!--Converter="{StaticResource NumStringConverter}-->
 								<TextBox.Text>
 									<Binding Path="NoOfEntries" Mode="TwoWay" UpdateSourceTrigger="LostFocus" ValidatesOnNotifyDataErrors="True" />
@@ -41,7 +41,7 @@
 
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" Content="No. of Searches" />
-							<TextBox Style="{StaticResource TextErrorStyle}" Width ="35" IsEnabled ="{Binding IsReady}" >
+							<TextBox Style="{StaticResource TextErrorStyle}" Width ="35" IsEnabled ="{Binding IsIdle}" >
 								<!--Converter="{StaticResource NumStringConverter}"-->
 								<TextBox.Text>
 									<Binding Path="NoOfSearches" Mode="TwoWay" UpdateSourceTrigger="LostFocus" ValidatesOnNotifyDataErrors="True" />
@@ -52,12 +52,13 @@
 					</StackPanel>
 				</GroupBox>
 
+				<!-- Statistics -->
 				<GroupBox Style ="{StaticResource GroupBoxStyle}" Header="Statistics" Grid.Row="0" Grid.Column="1" >
-
 					<StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center"  >
 
-						<!--Linear Simulation Results-->
-						<GroupBox Height="Auto" BorderThickness ="1" Header="Linear Search" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0, 2, 0, 0">
+						<!-- Linear Simulation Results -->
+						<GroupBox Height="Auto" BorderThickness ="1" Header="Linear Search" Margin="0, 2, 0, 0"
+								  HorizontalAlignment="Stretch" VerticalAlignment="Center">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto"/>
@@ -69,15 +70,15 @@
 									<ColumnDefinition Width="Auto"/>
 								</Grid.ColumnDefinitions>
 
-								<Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="90" HorizontalAlignment="Left" HorizontalContentAlignment="Left"
-									   Content="Avg. No. of Iterations" />
+								<Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="90"
+									   HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Avg. No. of Iterations" />
 
 								<Label Grid.Row="0" Grid.Column="1" Style="{StaticResource LabelStyle}" Width ="50" HorizontalContentAlignment="Right"
 									   Content="{Binding LinearSearchResults.AvgNoOfIterations, Converter={StaticResource NumStringConverter},
 									   Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
-								<Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="95" HorizontalAlignment="Left" HorizontalContentAlignment="Left"
-									   Content="Avg. Elapsed Time (ms)" />
+								<Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="95"
+									   HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Avg. Elapsed Time (ms)" />
 
 								<Label Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}" Width ="50" HorizontalContentAlignment="Right"
 										   Content="{Binding LinearSearchResults.AvgElapsedTime, Converter={StaticResource NumStringConverter},
@@ -85,7 +86,7 @@
 							</Grid>
 						</GroupBox>
 						
-						<!--Binary Simulation Results-->
+						<!-- Binary Simulation Results -->
 						<GroupBox BorderThickness ="1" Header="Binary Search" HorizontalAlignment="Stretch" VerticalAlignment="Center">
 							<Grid>
 								<Grid.RowDefinitions>
@@ -120,7 +121,7 @@
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" DockPanel.Dock ="Left" Content="Target Value" />
 
-							<TextBox Style="{StaticResource TextErrorStyle}" DockPanel.Dock ="Right" Width="50" IsEnabled ="{Binding IsReady}"
+							<TextBox Style="{StaticResource TextErrorStyle}" DockPanel.Dock ="Right" Width="50" IsEnabled ="{Binding IsIdle}"
 									 Text="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" >
 							</TextBox>
 
@@ -141,7 +142,7 @@
 							HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 0" >
 
 						<Button Style="{StaticResource ButtonStyle}" DockPanel.Dock="Top" Content="Simulate Searches"
-								IsEnabled="{Binding IsReady}" Command="{Binding SimulateCommand}" />
+								IsEnabled="{Binding IsIdle}" Command="{Binding SimulateCommand}" />
 
 						<Button Style="{StaticResource ButtonStyle}" DockPanel.Dock="Bottom" Margin="0, 5, 0, 0" Content="Cancel"
 								IsEnabled="{Binding IsSimulating}" Command="{Binding CancelCommand}" />

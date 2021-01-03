@@ -8,7 +8,7 @@ namespace SearchMethods.GUI.View
 		public MainView()
 		{
 			InitializeComponent();
-			ISearchItem searchItem = new SearchItem();
+			var searchItem = new SearchItem();
 			var vm = new MainViewModel(searchItem);
 			DataContext = vm;
 		}

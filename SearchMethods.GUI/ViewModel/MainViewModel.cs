@@ -34,6 +34,7 @@ namespace SearchMethods.GUI.ViewModel
 
 		/************************************ Public Events & Delegates ************************************/
 		public RelayCommand  SimulateCommand { get; set; }
+
 		public RelayCommand CancelCommand { get; set; }
 
 		/******************************************* Properties ********************************************/
@@ -44,7 +45,8 @@ namespace SearchMethods.GUI.ViewModel
 			get => _isSimulating;
 			set => Set(ref _isSimulating, value);
 		}
-		public bool IsReady => !IsSimulating;
+
+		public bool IsIdle => !IsSimulating;
 
 		public Visibility ProgressBarVisibility
 		{
@@ -154,12 +156,12 @@ namespace SearchMethods.GUI.ViewModel
 
 		private bool CanSimulate()
 		{
-			return IsReady && IsInputValid();
+			return IsIdle && IsInputValid();
 		}
 
 		private bool CanCancel()
 		{
-			return IsReady && IsInputValid();
+			return IsIdle && IsInputValid();
 		}
 
 		private void Simulate()
