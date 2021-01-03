@@ -108,8 +108,15 @@ namespace SearchMethods.GUI.ViewModel
 
             set
             {
-                if (Set(ref _targetValue, value))
-                { TargetIndex = BinarySearch.FindItem(value).TargetIndex; }
+                var valid = int.TryParse(value.ToString(), out int result);
+                if (!valid)
+                { return; }
+
+                if (Set(ref _targetValue, result))
+                {
+                    var index = BinarySearch.FindItem(value).TargetIndex;
+                    TargetIndex = index.HasValue ? index : null;
+                }
             }
         }
 

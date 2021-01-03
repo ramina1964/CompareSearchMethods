@@ -123,7 +123,6 @@
 					<StackPanel Orientation="Vertical" >
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" DockPanel.Dock ="Left" Content="Target Value" />
-
 							<TextBox Style="{StaticResource TextErrorStyle}" DockPanel.Dock ="Right" Width="50" IsEnabled ="{Binding IsIdle}"
 									 Text="{Binding TargetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" >
 							</TextBox>
