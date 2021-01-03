@@ -39,6 +39,7 @@ namespace SearchMethods.Model
             }
         }
         public static Random Random;
+
         protected ObservableCollection<int> Data;
 
         public abstract ISearchItem FindItem(int value);
@@ -49,11 +50,9 @@ namespace SearchMethods.Model
         {
             var data = new HashSet<int>();
             var size = NoOfEntries;
-            var startValue = StartValue;
-            var endValue = EndValue;
 
             while (data.Count < size)
-            { data.Add(Random.Next(startValue, endValue)); }
+            { data.Add(Random.Next(StartValue, EndValue)); }
 
             var result = data.ToList();
             result.Sort();

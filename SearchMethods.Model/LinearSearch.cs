@@ -1,6 +1,6 @@
 namespace SearchMethods.Model
 {
-    public class LinearSearch : BaseSearch
+    public sealed class LinearSearch : BaseSearch
     {
         public LinearSearch(ISearchItem searchItem, int noOfEntries) : base(searchItem, noOfEntries)
         { }

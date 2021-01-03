@@ -1,6 +1,6 @@
 namespace SearchMethods.Model
 {
-    public class BinarySearch : BaseSearch
+    public sealed class BinarySearch : BaseSearch
     {
         public BinarySearch(ISearchItem searchItem, int noOfEntries)
             : base(searchItem, noOfEntries)

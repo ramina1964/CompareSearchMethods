@@ -11,7 +11,6 @@ using System.Diagnostics;
 
 namespace SearchMethods.GUI.ViewModel
 {
-    /********************************************* Constructors ********************************************/
     public class MainViewModel : ExtendedViewModelBase
     {
         public MainViewModel(ISearchItem searchItem)
@@ -27,27 +26,39 @@ namespace SearchMethods.GUI.ViewModel
             ProgressBarVisibility = Visibility.Collapsed;
         }
 
-        /************************************** Static and Constants ***************************************/
         public static long MinProductValue = (long)1e5;
         public static long MaxProductValue = (long)5e10;
         public static readonly string MaxProductError =
             $"Product of No. of searches and No. of entries must be in the interval [{MinProductValue}, {MaxProductValue}].";
 
-        /************************************ Public Events & Delegates ************************************/
+        /************************************ Public Attributes ************************************/
         public RelayCommand SimulateCommand { get; set; }
 
         public RelayCommand CancelCommand { get; set; }
 
-        /******************************************* Properties ********************************************/
         public ISearchItem SearchItem { get; set; }
 
         public bool IsSimulating
         {
             get => _isSimulating;
-            set => Set(ref _isSimulating, value);
+            set
+            {
+                if (Set(ref _isSimulating, value))
+                {
+                    RaisePropertyChanged(nameof(IsIdle));
+                }
+            }
         }
 
-        public bool IsIdle => !IsSimulating;
+        public bool IsIdle
+        {
+            get
+            {
+                _isIdle = !IsSimulating;
+                return _isIdle;
+            }
+            set => Set(ref _isIdle, value);
+        }
 
         public Visibility ProgressBarVisibility
         {
@@ -130,8 +141,7 @@ namespace SearchMethods.GUI.ViewModel
 
         private void DataValidation()
         {
-            #region NoOfEntries
-            //Validate No. of Entries property
+            // Validate No. of Entries property
             if (PropErrors.TryGetValue(nameof(NoOfEntries), out var listErrors) == false)
                 listErrors = new List<string>();
 
@@ -150,10 +160,8 @@ namespace SearchMethods.GUI.ViewModel
             {
                 OnPropertyErrorsChanged(nameof(NoOfEntries));
             }
-            #endregion NoOfEntries
 
-            #region NoOfSearches
-            //Validate No. of Searches property
+            // Validate No. of Searches property
             if (PropErrors.TryGetValue(nameof(NoOfSearches), out listErrors) == false)
                 listErrors = new List<string>();
 
@@ -172,18 +180,11 @@ namespace SearchMethods.GUI.ViewModel
             {
                 OnPropertyErrorsChanged(nameof(NoOfSearches));
             }
-            #endregion NoOfSearches
         }
 
-        private bool CanSimulate()
-        {
-            return IsIdle && IsInputValid();
-        }
+        private bool CanSimulate() => IsIdle && IsInputValid();
 
-        private bool CanCancel()
-        {
-            return IsIdle && IsInputValid();
-        }
+        private bool CanCancel() => IsIdle && IsInputValid();
 
         private void Simulate()
         {
@@ -266,16 +267,14 @@ namespace SearchMethods.GUI.ViewModel
             });
         }
 
-        private ISimulationResults SimulationResults(double totalNoOfIterations, double totalElapsedTime)
-        {
-            return new SimulationResults()
+        private ISimulationResults SimulationResults(double totalNoOfIterations, double totalElapsedTime) =>
+            new SimulationResults()
             {
                 NoOfEntries = NoOfEntries,
                 NoOfSearches = NoOfSearches,
                 AvgNoOfIterations = totalNoOfIterations / NoOfSearches,
                 AvgElapsedTime = totalElapsedTime / NoOfSearches
             };
-        }
 
         private string GetEntries()
         {
@@ -307,11 +306,7 @@ namespace SearchMethods.GUI.ViewModel
                 : sb.Append(BinarySearch[toIndex] + ", ");
         }
 
-        private bool IsInputValid()
-        {
-            Validate();
-            return !HasErrors;
-        }
+        private bool IsInputValid() => !HasErrors;
 
         private LinearSearch LinearSearch { get; set; }
 
@@ -319,10 +314,10 @@ namespace SearchMethods.GUI.ViewModel
 
         /***************************************** Private Fields ******************************************/
         private int _targetValue;
-
         private int _noOfEntries;
         private int _noOfSearches;
         private bool _isSimulating;
+        private bool _isIdle;
         private Visibility _progressBarVisibility;
         private double _progressBarValue;
         private int? _targetIndex;
