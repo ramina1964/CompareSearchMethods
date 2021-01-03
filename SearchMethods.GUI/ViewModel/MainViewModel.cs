@@ -69,10 +69,22 @@ namespace SearchMethods.GUI.ViewModel
         public double ProgressBarValue
         {
             get => _progressBarValue;
-            set => Set(ref _progressBarValue, value);
+            set
+            {
+                if (Set(ref _progressBarValue, value))
+                {
+                    ProgressBarLabel = Math.Round(ProgressBarValue, 0) + "%";
+                    RaisePropertyChanged(nameof(ProgressBarLabel));
+                }
+            }
         }
 
-        public string ProgressBarText => Math.Round(ProgressBarValue, 0) + "%";
+        //public string ProgressBarText => Math.Round(ProgressBarValue, 0) + "%";
+        public string ProgressBarLabel
+        {
+            get => _progressBarLabel;
+            set => Set(ref _progressBarLabel, value);
+        }
 
         public ISimulationResults LinearSearchResults { get; set; }
 
@@ -320,6 +332,7 @@ namespace SearchMethods.GUI.ViewModel
         private bool _isIdle;
         private Visibility _progressBarVisibility;
         private double _progressBarValue;
+        private string _progressBarLabel;
         private int? _targetIndex;
         private double _linearAvgNoOfIterations;
         private double _linearAvgElapsedTime;
