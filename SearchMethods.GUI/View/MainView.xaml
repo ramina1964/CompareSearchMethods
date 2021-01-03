@@ -8,7 +8,7 @@
 	<Window.Resources>
 		<viewModel:NumStringConverter x:Key="NumStringConverter" />
 	</Window.Resources>
-	
+
 	<Page>
 		<Viewbox>
 			<Grid Margin="5">
@@ -32,19 +32,19 @@
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" Content="No. of Entries" />
 							<TextBox Style="{StaticResource TextErrorStyle}" DockPanel.Dock="Right" Width ="35" IsEnabled ="{Binding IsIdle}" >
-								<!--Converter="{StaticResource NumStringConverter}-->
 								<TextBox.Text>
-									<Binding Path="NoOfEntries" Mode="TwoWay" UpdateSourceTrigger="LostFocus" ValidatesOnNotifyDataErrors="True" />
+									<Binding Path="NoOfEntries" Mode="TwoWay" UpdateSourceTrigger="LostFocus" ValidatesOnNotifyDataErrors="True"
+											 Converter="{StaticResource NumStringConverter}" />
 								</TextBox.Text >
 							</TextBox>
 						</DockPanel>
 
 						<DockPanel >
 							<Label Style="{StaticResource LabelStyle}" Content="No. of Searches" />
-							<TextBox Style="{StaticResource TextErrorStyle}" Width ="35" IsEnabled ="{Binding IsIdle}" >
-								<!--Converter="{StaticResource NumStringConverter}"-->
+							<TextBox Style="{StaticResource TextErrorStyle}" Width ="35" IsEnabled ="{Binding IsIdle}">
 								<TextBox.Text>
-									<Binding Path="NoOfSearches" Mode="TwoWay" UpdateSourceTrigger="LostFocus" ValidatesOnNotifyDataErrors="True" />
+									<Binding Path="NoOfSearches" Mode="TwoWay" UpdateSourceTrigger="LostFocus" ValidatesOnNotifyDataErrors="True"
+											 Converter="{StaticResource NumStringConverter}" />
 								</TextBox.Text >
 							</TextBox>
 
@@ -70,22 +70,23 @@
 									<ColumnDefinition Width="Auto"/>
 								</Grid.ColumnDefinitions>
 
-								<Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="90"
+								<Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="95"
 									   HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Avg. No. of Iterations" />
 
 								<Label Grid.Row="0" Grid.Column="1" Style="{StaticResource LabelStyle}" Width ="50" HorizontalContentAlignment="Right"
-									   Content="{Binding LinearSearchResults.AvgNoOfIterations, Converter={StaticResource NumStringConverter},
-									   Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+									   Content="{Binding LinearAvgNoOfIterations, Converter={StaticResource NumStringConverter},
+										Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 								<Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="95"
 									   HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Avg. Elapsed Time (ms)" />
-
+								
 								<Label Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}" Width ="50" HorizontalContentAlignment="Right"
-										   Content="{Binding LinearSearchResults.AvgElapsedTime, Converter={StaticResource NumStringConverter},
-										   Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+									   Content="{Binding LinearAvgElapsedTime, Converter={StaticResource NumStringConverter},
+									   Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
 							</Grid>
 						</GroupBox>
-						
+
 						<!-- Binary Simulation Results -->
 						<GroupBox BorderThickness ="1" Header="Binary Search" HorizontalAlignment="Stretch" VerticalAlignment="Center">
 							<Grid>
@@ -103,13 +104,15 @@
 									   HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Avg. No. of Iterations" />
 
 								<Label Grid.Row="0" Grid.Column="1" Style="{StaticResource LabelStyle}" Width ="50" HorizontalContentAlignment="Right"
-									   Content="{Binding BinarySearchResults.AvgNoOfIterations, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+									   Content="{Binding BinaryAvgNoOfIterations, Converter={StaticResource NumStringConverter},
+									   Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 								<Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" Width ="95"
 									   HorizontalAlignment="Left" HorizontalContentAlignment="Left" Content="Avg. Elapsed Time (ms)" />
 
 								<Label Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}" Width ="50" HorizontalContentAlignment="Right"
-									   Content="{Binding BinarySearchResults.AvgElapsedTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+									   Content="{Binding BinaryAvgElapsedTime, Converter={StaticResource NumStringConverter},
+									   Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 							</Grid>
 						</GroupBox>
 					</StackPanel>
