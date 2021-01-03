@@ -23,7 +23,7 @@ namespace SearchMethods.GUI.ViewModel
             NoOfSearches = (int)1e3;
 
             IsSimulating = false;
-            ProgressBarVisibility = Visibility.Collapsed;
+            ProgressBarVisibility = Visibility.Hidden;
         }
 
         public static long MinProductValue = (long)1e5;
@@ -249,7 +249,7 @@ namespace SearchMethods.GUI.ViewModel
                 stopwatch.Stop();
                 var timeInSec = (double)stopwatch.ElapsedMilliseconds / 1000;
                 ProgressBarValue = 0;
-                ProgressBarVisibility = Visibility.Collapsed;
+                ProgressBarVisibility = Visibility.Hidden;
 
                 var elapsedTimeInSec = Math.Round(timeInSec, 1);
                 return SimulationResults(totalNoOfIterations, elapsedTimeInSec);
@@ -272,7 +272,7 @@ namespace SearchMethods.GUI.ViewModel
                 stopwatch.Stop();
                 var timeInSec = (double)stopwatch.ElapsedMilliseconds / 1000;
                 ProgressBarValue = 0;
-                ProgressBarVisibility = Visibility.Collapsed;
+                ProgressBarVisibility = Visibility.Hidden;
 
                 var elapsedTimeInSec = Math.Round(timeInSec, 5);
                 return SimulationResults(totalNoOfIterations, elapsedTimeInSec);

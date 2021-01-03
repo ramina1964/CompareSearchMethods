@@ -163,7 +163,7 @@
 							<RowDefinition />
 						</Grid.RowDefinitions>
 
-						<ProgressBar Grid.Row="0" Width="Auto" Height="25" Visibility="{Binding ProgressBarVisibility}"
+						<ProgressBar Grid.Row="0" Width="Auto" Height="20" Visibility="{Binding ProgressBarVisibility}"
 									 Value="{Binding ProgressBarValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 									 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
 									 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
