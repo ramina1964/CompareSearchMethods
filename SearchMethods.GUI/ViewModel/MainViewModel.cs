@@ -79,7 +79,6 @@ namespace SearchMethods.GUI.ViewModel
             }
         }
 
-        //public string ProgressBarText => Math.Round(ProgressBarValue, 0) + "%";
         public string ProgressBarLabel
         {
             get => _progressBarLabel;
@@ -205,16 +204,40 @@ namespace SearchMethods.GUI.ViewModel
 
         private bool CanCancel() => IsIdle && IsInputValid();
 
+        //private void Simulate()
+        //{
+        //    IsSimulating = true;
+        //    ProgressBarVisibility = Visibility.Visible;
+        //    LinearSearch = new LinearSearch(SearchItem, NoOfEntries);
+        //    BinarySearch = new BinarySearch(SearchItem, NoOfEntries);
+        //    var searches = new BaseSearch[] { LinearSearch, BinarySearch };
+
+        //    new Thread(() => Simulate(searches)).Start();
+        //    IsSimulating = false;
+        //}
+
         private void Simulate()
         {
             IsSimulating = true;
-            ProgressBarVisibility = Visibility.Visible;
-            LinearSearch = new LinearSearch(SearchItem, NoOfEntries);
-            BinarySearch = new BinarySearch(SearchItem, NoOfEntries);
-            var searches = new BaseSearch[] { LinearSearch, BinarySearch };
-
+            var searches = Initialize();
             new Thread(() => Simulate(searches)).Start();
             IsSimulating = false;
+        }
+
+        private BaseSearch[] Initialize()
+        {
+            ProgressBarVisibility = Visibility.Visible;
+
+            ProgressBarLabel = string.Empty;
+            LinearSearch = new LinearSearch(SearchItem, NoOfEntries);
+            BinarySearch = new BinarySearch(SearchItem, NoOfEntries);
+
+            LinearAvgNoOfIterations = 0;
+            LinearAvgElapsedTime = 0;
+            BinaryAvgNoOfIterations = 0;
+            BinaryAvgElapsedTime = 0;
+
+            return new BaseSearch[] { LinearSearch, BinarySearch };
         }
 
         private void Cancel()
