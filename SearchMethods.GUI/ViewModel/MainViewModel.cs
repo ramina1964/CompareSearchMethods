@@ -204,18 +204,6 @@ namespace SearchMethods.GUI.ViewModel
 
         private bool CanCancel() => IsIdle && IsInputValid();
 
-        //private void Simulate()
-        //{
-        //    IsSimulating = true;
-        //    ProgressBarVisibility = Visibility.Visible;
-        //    LinearSearch = new LinearSearch(SearchItem, NoOfEntries);
-        //    BinarySearch = new BinarySearch(SearchItem, NoOfEntries);
-        //    var searches = new BaseSearch[] { LinearSearch, BinarySearch };
-
-        //    new Thread(() => Simulate(searches)).Start();
-        //    IsSimulating = false;
-        //}
-
         private void Simulate()
         {
             IsSimulating = true;

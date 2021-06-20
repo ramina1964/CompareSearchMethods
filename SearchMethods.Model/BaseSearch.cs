@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace SearchMethods.Model
 {
+    // Todo: Implement CancelSimulation here.
+
     public abstract class BaseSearch
     {
         protected BaseSearch(ISearchItem searchItem, int noOfEntries)

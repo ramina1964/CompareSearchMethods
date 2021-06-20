@@ -1,5 +1,3 @@
-using SearchMethods.Model;
-
 namespace SearchMethods.Model
 {
     public class SearchItem : ISearchItem
