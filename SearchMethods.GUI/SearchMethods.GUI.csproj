@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\NegativeConverter.cs" />
     <Compile Include="Converters\NumStringConverter.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="InputValidation.cs" />

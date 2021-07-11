@@ -16,7 +16,7 @@ namespace SearchMethods.Model
             StartValue = 0;
             EndValue = 5 * NoOfEntries - 1;
 
-            IndexOutOfRangeError = $"Index must be an integer in the interval [{0}, {NoOfEntries - 1}].";
+            IndexOutOfRangeError = $"Index must be an integer in the interval [0, {NoOfEntries - 1}].";
             Random = new Random();
         }
 

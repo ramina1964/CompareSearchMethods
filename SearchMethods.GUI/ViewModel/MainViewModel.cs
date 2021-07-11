@@ -43,21 +43,12 @@ namespace SearchMethods.GUI.ViewModel
             get => _isSimulating;
             set
             {
-                if (Set(ref _isSimulating, value))
-                {
-                    RaisePropertyChanged(nameof(IsIdle));
-                }
-            }
-        }
+                var isSet = Set(ref _isSimulating, value);
+                //if (!isSet) return;
 
-        public bool IsIdle
-        {
-            get
-            {
-                _isIdle = !IsSimulating;
-                return _isIdle;
+                //SimulateCommand.RaiseCanExecuteChanged();
+                //CancelCommand.RaiseCanExecuteChanged();
             }
-            set => Set(ref _isIdle, value);
         }
 
         public Visibility ProgressBarVisibility
@@ -200,9 +191,9 @@ namespace SearchMethods.GUI.ViewModel
             }
         }
 
-        private bool CanSimulate() => IsIdle && IsInputValid();
+        private bool CanSimulate() => !IsSimulating && IsInputValid();
 
-        private bool CanCancel() => IsIdle && IsInputValid();
+        private bool CanCancel() => IsSimulating;
 
         private void Simulate()
         {
@@ -347,7 +338,7 @@ namespace SearchMethods.GUI.ViewModel
         private int _noOfEntries;
         private int _noOfSearches;
         private bool _isSimulating;
-        private bool _isIdle;
+        //private bool _isIdle;
         private Visibility _progressBarVisibility;
         private double _progressBarValue;
         private string _progressBarLabel;
